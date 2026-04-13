@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>SRU Ops Dashboard — Furnace Details</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400;500&family=Space+Grotesk:wght@300;400;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="furnace.css">
+</head>
+
+<body>
+  <div class="phone-shell">
+    <div class="content">
+
+      <!-- Status Bar -->
+      <div class="status-bar">
+        <span><span class="live-dot"></span>LIVE</span>
+        <span id="clock-f">--:--</span>
+        <span id="battery">🔋 84%</span>
+      </div>
+
+      <!-- Header -->
+      <div class="header">
+        <div class="dept-block">
+          <div class="dept-tag">
+            <div class="dept-tag-dot"></div>
+            <span class="dept-tag-text">Furnace 93F-401</span>
+          </div>
+          <div class="dept-title"><span>Detailed Operations</span></div>
+          <div class="dept-company">SRU · Cilacap Refinery</div>
+        </div>
+      </div>
+
+      <div class="section-label">Furnace Indicators</div>
+      <div class="cards-grid">
+
+        <!-- 1. Acid Flow -->
+        <div class="card">
+          <div class="card-label">Acid Flow</div>
+          <div class="card-value">121<span class="unit">ton</span></div>
+          <div class="card-sub">Setpoint: <span class="up">120 ton</span></div>
+        </div>
+
+        <!-- 2. Furnace Temperature -->
+        <div class="card hot">
+          <div class="card-label">Furnace Temp</div>
+          <div class="card-value">1,150<span class="unit">°C</span></div>
+          <div class="card-sub">Max cap: <span style="color:var(--orange)">1,300°C</span></div>
+        </div>
+
+        <!-- 3. Inlet Outlet Temperature -->
+        <div class="card wide">
+          <div class="card-label">Inlet & Outlet Temp</div>
+          <div style="display:flex; justify-content:space-between; margin-top:8px;">
+            <div>
+              <div class="card-value" style="font-size:24px;">240<span class="unit">°C</span></div>
+              <div class="card-sub">Inlet</div>
+            </div>
+            <div style="text-align:right;">
+              <div class="card-value" style="font-size:24px;">310<span class="unit">°C</span></div>
+              <div class="card-sub">Outlet</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. Furnace Pressure -->
+        <div class="card">
+          <div class="card-label">Pressure</div>
+          <div class="card-value">0.45<span class="unit">kg/cm²</span></div>
+          <div class="card-sub">Status: <span class="up">Normal</span></div>
+        </div>
+
+        <!-- 5. Skin Temperature -->
+        <div class="card">
+          <div class="card-label">Skin Temp</div>
+          <div class="card-value">180<span class="unit">°C</span></div>
+          <div class="card-sub">Limit: <span style="color:var(--yellow)">250°C</span></div>
+        </div>
+
+        <!-- 6. Combustion Air flow -->
+        <div class="card">
+          <div class="card-label">Air Flow</div>
+          <div class="card-value">210<span class="unit">ton</span></div>
+          <div class="card-sub">Ratio adjusted</div>
+        </div>
+
+        <!-- 7. Combustion air pressure -->
+        <div class="card">
+          <div class="card-label">Air Pressure</div>
+          <div class="card-value">1.1<span class="unit">kg/cm²</span></div>
+          <div class="card-sub">Blower: <span class="up">ON</span></div>
+        </div>
+
+        <!-- 8. Overall status -->
+        <div class="card wide" style="text-align:center;">
+          <div class="card-label">Overall Status</div>
+          <div class="card-value" style="color:var(--safe); margin-top:4px;">OPTIMAL OPERATION</div>
+        </div>
+
+      </div>
+
+      <!-- 9. Override operation button -->
+      <div class="btn-override" onclick="window.location.href='furnace_override.html'">
+        ⚠️ Override Operation
+      </div>
+
+    </div><!-- /content -->
+
+    <!-- Bottom Nav Injected via JS -->
+    <div id="nav-placeholder"></div>
+
+  </div><!-- /phone-shell -->
+
+  <script src="script.js"></script>
+  <script src="furnace.js"></script>
+  <script src="nav.js"></script>
+</body>
+
+</html>

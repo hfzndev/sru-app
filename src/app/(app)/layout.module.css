@@ -1,0 +1,42 @@
+.appShell {
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+}
+
+/* Background gradient shared for dashboard */
+.appShell::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: 
+      radial-gradient(ellipse 60% 40% at 80% -10%, rgba(245,200,0,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 30% at -10% 80%, rgba(245,200,0,0.04) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.mainContent {
+  flex: 1;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Desktop layout */
+@media (min-width: 1024px) {
+  .mainContent {
+    margin-left: 240px; /* offset for permanent sidebar */
+    padding: 24px clamp(24px, 4vw, 48px) 80px;
+  }
+}
+
+/* Mobile/Tablet Layout */
+@media (max-width: 1023px) {
+  .mainContent {
+    padding: 76px 16px 80px; /* 56px top bar + 20px space */
+  }
+}

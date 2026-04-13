@@ -1,0 +1,42 @@
+export const newsItems = [
+  {
+    id: 1,
+    title: "SRU Achieves 105-Ton Daily Sulfur Production Target",
+    excerpt: "Refinery Unit IV Cilacap's Sulfur Recovery Unit surpasses its daily production target for the third consecutive week, setting a new operational benchmark.",
+    date: "Apr 10, 2026",
+    category: "Production",
+    href: "#",
+  },
+  {
+    id: 2,
+    title: "New Catalyst Loading Completed on Claus Converter",
+    excerpt: "Scheduled catalyst replacement on the 93F-401 Claus Furnace was completed ahead of schedule with zero unplanned downtime.",
+    date: "Apr 7, 2026",
+    category: "Maintenance",
+    href: "#",
+  },
+  {
+    id: 3,
+    title: "Environmental Audit: SO₂ Emissions Below Threshold",
+    excerpt: "Annual environmental compliance audit confirms SRU tail gas emissions are well below regulatory limits, earning a commendation from the inspection team.",
+    date: "Apr 3, 2026",
+    category: "Environment",
+    href: "#",
+  },
+  {
+    id: 4,
+    title: "Crew A Completes Safety Refresher Training",
+    excerpt: "All members of Crew A successfully completed the mandatory H₂S emergency response and PPE safety refresher program.",
+    date: "Mar 28, 2026",
+    category: "Safety",
+    href: "#",
+  },
+  {
+    id: 5,
+    title: "SRU Dashboard Goes Live for All Operators",
+    excerpt: "The new SRU digital operations dashboard has been rolled out to all shift crews, enabling real-time monitoring from any device on the plant network.",
+    date: "Mar 20, 2026",
+    category: "Technology",
+    href: "#",
+  },
+]

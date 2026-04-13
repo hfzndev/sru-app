@@ -1,0 +1,25 @@
+.btnOverride {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 16px;
+  background: rgba(255, 68, 68, 0.05);
+  border: 1px solid var(--danger);
+  color: var(--danger);
+  border-radius: var(--radius);
+  font-family: var(--font-jakarta);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  margin: 20px;
+  transition: 0.3s;
+  box-shadow: 0 0 10px rgba(255, 68, 68, 0.2);
+}
+
+.btnOverride:active {
+  background: rgba(255, 68, 68, 0.2);
+  box-shadow: 0 0 20px rgba(255, 68, 68, 0.4);
+}

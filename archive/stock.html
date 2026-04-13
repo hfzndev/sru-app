@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>SRU Ops Dashboard — Material Stock</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400;500&family=Space+Grotesk:wght@300;400;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="stock.css">
+</head>
+
+<body>
+  <div class="phone-shell">
+    <div class="content">
+
+      <!-- Status Bar -->
+      <div class="status-bar">
+        <span><span class="live-dot"></span>LIVE</span>
+        <span id="clock-stock">--:--</span>
+        <span id="battery">🔋 100%</span>
+      </div>
+
+      <!-- Header -->
+      <div class="header">
+        <div class="dept-block">
+          <div class="dept-tag">
+            <div class="dept-tag-dot"></div>
+            <span class="dept-tag-text">Inventory Management</span>
+          </div>
+          <div class="dept-title"><span>Material Stock</span></div>
+          <div class="dept-company">SRU · IPAL · WWT</div>
+        </div>
+      </div>
+
+      <!-- Stock List Container -->
+      <div id="stock-manage-list"></div>
+
+    </div><!-- /content -->
+
+    <!-- Bottom Nav Injected via JS -->
+    <div id="nav-placeholder"></div>
+
+  </div><!-- /phone-shell -->
+
+  <script src="stock.js"></script>
+  <script src="nav.js"></script>
+</body>
+
+</html>

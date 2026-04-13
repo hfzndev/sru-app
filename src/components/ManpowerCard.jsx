@@ -1,0 +1,107 @@
+"use client"
+import { useState, useEffect } from "react"
+import styles from "./ManpowerCard.module.css"
+
+export default function ManpowerCard() {
+  const [loading, setLoading] = useState(true);
+  const [shiftMap, setShiftMap] = useState(null);
+  const [crewDetails, setCrewDetails] = useState([]);
+  const [activeShiftIndex, setActiveShiftIndex] = useState(0); // 0=Morning, 1=Mid, 2=Night
+
+  useEffect(() => {
+    // Current Active Shift Highlight based on local time
+    const updateActiveBlock = () => {
+      const h = new Date().getHours();
+      if (h >= 8 && h < 16) setActiveShiftIndex(0); // Morning
+      else if (h >= 16 && h < 24) setActiveShiftIndex(1); // Mid
+      else setActiveShiftIndex(2); // Night
+    };
+    updateActiveBlock();
+    const timer = setInterval(updateActiveBlock, 60000);
+    return () => clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const localDate = new Date();
+        const yyyy = localDate.getFullYear();
+        const mm = String(localDate.getMonth() + 1).padStart(2, '0');
+        const dd = String(localDate.getDate()).padStart(2, '0');
+        const localDateStr = `${yyyy}-${mm}-${dd}`;
+
+        // Fetch mathematical prediction for TODAY timezone protected
+        const shiftRes = await fetch(`/api/shift?date=${localDateStr}`);
+        
+        if (shiftRes.ok) {
+          const shiftJson = await shiftRes.json();
+          setShiftMap(shiftJson.assignments);
+          setCrewDetails(shiftJson.crewDetails);
+        }
+      } catch (err) {
+        console.error("Failed to load shift prediction.", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+    const pollTimer = setInterval(fetchData, 60000);
+    return () => clearInterval(pollTimer);
+  }, []);
+
+  const getSubNumber = (shiftName, shiftPhase) => {
+    const d = crewDetails.find(c => c.crew === shiftName);
+    if (!d) return '';
+    if (shiftPhase === 'Morning') return d.cycleDay;
+    if (shiftPhase === 'Night') return d.cycleDay - 4;
+    if (shiftPhase === 'Mid') return d.cycleDay - 8;
+    return ''; // Off has no day numbers usually
+  };
+
+  const blocks = [
+    { label: 'Morning', time: '08–16', crewName: shiftMap?.Morning, phase: 'Morning' },
+    { label: 'Mid Day', time: '16–00', crewName: shiftMap?.Mid, phase: 'Mid' },
+    { label: 'Night', time: '00–08', crewName: shiftMap?.Night, phase: 'Night' },
+    { label: 'Standby / Off', time: 'Rest', crewName: shiftMap?.Off, phase: 'Off' }
+  ];
+
+  return (
+    <div className={`${styles.card} ${styles.cardWide}`}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+        <div className={styles.cardLabel}>Shift Roster Mapping</div>
+        {!loading && shiftMap && (
+           <div style={{ fontSize: '10px', color: 'var(--gray)', fontFamily: 'var(--font-dm-mono)' }}>LIVE PREDICTION</div>
+        )}
+      </div>
+      
+      {loading ? (
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100px', color: 'var(--gray)', fontSize: '12px' }}>
+          Initializing Predictive Engine...
+        </div>
+      ) : shiftMap ? (
+        <div className={styles.shiftGrid}>
+          {blocks.map((block, i) => {
+            const isActive = i === activeShiftIndex;
+            const cycleBlockNumber = getSubNumber(block.crewName, block.phase);
+
+            return (
+              <div key={i} className={`${styles.shiftCard} ${isActive ? styles.shiftCardActive : ''}`}>
+                <div className={styles.shiftCardLabel} style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <span>{block.label}</span>
+                  <span style={{ color: isActive ? 'var(--blue)' : 'var(--white)', fontWeight: 'bold' }}>
+                    {block.crewName} <span style={{fontSize: '10px', fontWeight: 'normal', color: 'var(--gray)', marginLeft: '4px'}}>{cycleBlockNumber ? `(${block.phase} ${cycleBlockNumber})` : ''}</span>
+                  </span>
+                </div>
+                <div className={styles.shiftCardSub}>
+                  {block.time} {block.time !== 'Rest' ? 'WIB' : ''}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      ) : (
+        <div style={{ color: 'var(--danger)', fontSize: '12px', marginTop: '12px' }}>Engine Calibration Required</div>
+      )}
+    </div>
+  )
+}

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>SRU Ops Dashboard — Crew Management</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400;500&family=Space+Grotesk:wght@300;400;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="crew.css">
+</head>
+
+<body>
+  <div class="phone-shell">
+    <div class="content">
+      <!-- Status Bar -->
+      <div class="status-bar">
+        <span><span class="live-dot"></span>LIVE</span>
+        <span id="clock-crew">--:--</span>
+        <span id="battery">🔋 100%</span>
+      </div>
+
+      <!-- Header -->
+      <div class="header">
+        <div class="dept-block">
+          <div class="dept-tag">
+            <div class="dept-tag-dot"></div>
+            <span class="dept-tag-text">Human Resources</span>
+          </div>
+          <div class="dept-title"><span>Crew Management</span></div>
+          <div class="dept-company">SRU & IPAL Operations Team</div>
+        </div>
+      </div>
+
+      <!-- Crew List Container -->
+      <div id="crew-list-container" style="padding: 0 20px 80px;"></div>
+
+    </div>
+
+    <!-- Bottom Nav Injected via JS -->
+    <div id="nav-placeholder"></div>
+  </div>
+
+  <script src="crew.js"></script>
+  <script src="nav.js"></script>
+</body>
+
+</html>

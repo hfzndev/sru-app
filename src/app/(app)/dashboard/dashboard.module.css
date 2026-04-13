@@ -1,0 +1,314 @@
+/* ── Dashboard-specific styles ── */
+
+/* ── STATUS BAR ── */
+.statusBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 24px 8px;
+  font-family: var(--font-dm-mono);
+  font-size: 11px;
+  color: var(--gray);
+  letter-spacing: 0.05em;
+}
+
+.liveDot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: var(--safe);
+  border-radius: 50%;
+  margin-right: 5px;
+  animation: pulse-dot 2s infinite;
+}
+
+@keyframes pulse-dot {
+
+  0%,
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(68, 204, 136, 0.6);
+  }
+
+  50% {
+    opacity: 0.7;
+    box-shadow: 0 0 0 4px rgba(68, 204, 136, 0);
+  }
+}
+
+/* ── HEADER ── */
+.header {
+  padding: 4px 20px 16px;
+  animation: slideDown 0.6s ease forwards 0.1s;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.deptBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.deptTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--yellow-dim);
+  border: 1px solid rgba(245, 200, 0, 0.25);
+  border-radius: 6px;
+  padding: 3px 10px;
+  width: fit-content;
+}
+
+.deptTagDot {
+  width: 5px;
+  height: 5px;
+  background: var(--yellow);
+  border-radius: 50%;
+}
+
+.deptTagText {
+  font-family: var(--font-dm-mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  color: var(--yellow);
+  text-transform: uppercase;
+}
+
+.deptTitle {
+  font-family: var(--font-space-grotesk);
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: 0.01em;
+  line-height: 1.1;
+  color: var(--white);
+  white-space: nowrap;
+}
+
+.deptTitle span {
+  color: var(--yellow);
+}
+
+.deptCompany {
+  font-family: var(--font-dm-mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: var(--gray);
+}
+
+.dateBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--yellow-dim);
+  border: 1px solid rgba(245, 200, 0, 0.2);
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 11px;
+  color: var(--yellow);
+  font-family: var(--font-dm-mono);
+  letter-spacing: 0.05em;
+  margin-top: 6px;
+}
+
+/* ── SHIFT BANNER ── */
+.shiftBanner {
+  margin: 0 0 24px;
+  background: var(--black2);
+  border: 1px solid var(--gray2);
+  border-radius: var(--radius);
+  padding: 18px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  animation: slideUp 0.5s ease forwards 0.2s;
+  transition: border-color 0.3s ease;
+}
+
+.shiftBanner:hover {
+  border-color: rgba(245, 200, 0, 0.3);
+  background-color: var(--yellow-dim);
+  transition: background-color 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.shiftBanner::after {
+  content: 'SHIFT';
+  position: absolute;
+  right: -8px;
+  top: -10px;
+  font-family: var(--font-bebas-neue);
+  font-size: 68px;
+  color: rgba(255, 255, 255, 0.03);
+  pointer-events: none;
+}
+
+.shiftInfo .label {
+  font-size: 10px;
+  font-family: var(--font-dm-mono);
+  letter-spacing: 0.15em;
+  color: var(--gray);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.shiftInfo .value {
+  font-family: var(--font-jakarta);
+  font-weight: 700;
+  font-size: 26px;
+  color: var(--white);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 4px;
+}
+
+.shiftInfo .sub {
+  font-size: 11px;
+  color: var(--yellow);
+  font-family: var(--font-dm-mono);
+}
+
+.statusPill {
+  background: rgba(68, 204, 136, 0.1);
+  border: 1px solid rgba(68, 204, 136, 0.2);
+  border-radius: 20px;
+  padding: 6px 12px;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--safe);
+  font-family: var(--font-jakarta);
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ── SECTION LABEL ── */
+.sectionLabel {
+  padding: 0 20px;
+  margin-bottom: 10px;
+  font-family: var(--font-dm-mono);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: var(--gray);
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sectionLabel::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, var(--gray2), transparent);
+}
+
+/* Use inherited card styles from sharedStyles, this section removed to avoid conflicts */
+.cardWide {
+  grid-column: 1 / -1;
+}
+
+.cardLabel {
+  font-size: 9px;
+  font-family: var(--font-dm-mono);
+  letter-spacing: 0.15em;
+  color: var(--gray);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.cardValue {
+  font-family: var(--font-bebas-neue);
+  font-size: 30px;
+  letter-spacing: 0.03em;
+  line-height: 1;
+  color: var(--white);
+}
+
+.cardValue .unit {
+  font-size: 12px;
+  color: var(--gray);
+  font-family: var(--font-dm-mono);
+  margin-left: 2px;
+}
+
+.cardSub {
+  font-size: 10px;
+  color: var(--gray);
+  margin-top: 5px;
+  font-family: var(--font-dm-mono);
+}
+
+.cardSub .up {
+  color: var(--safe);
+}
+
+.prodWide {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.prodMain {
+  flex: 1;
+}
+
+.prodStat {
+  text-align: right;
+}
+
+.prodStat .statVal {
+  font-family: var(--font-bebas-neue);
+  font-size: 28px;
+  color: var(--safe);
+  line-height: 1;
+}
+
+.prodStat .statLabel {
+  font-size: 9px;
+  font-family: var(--font-dm-mono);
+  color: var(--gray);
+  letter-spacing: 0.1em;
+}
+
+.thermoBar {
+  height: 4px;
+  background: var(--gray2);
+  border-radius: 3px;
+  margin-top: 8px;
+  overflow: hidden;
+}
+
+.thermoFill {
+  height: 100%;
+  background: linear-gradient(to right, var(--yellow2), #ff9900);
+  border-radius: 3px;
+  width: 0;
+  transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+}

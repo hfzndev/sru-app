@@ -1,0 +1,173 @@
+/* ── CREW ACCORDION ── */
+.crew-box {
+    background: #0e0e0e;
+    border: 1px solid var(--gray2);
+    border-radius: 12px;
+    margin-bottom: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.crew-box.expanded {
+    border-color: rgba(245, 200, 0, 0.5);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.crew-box-header {
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    background: linear-gradient(180deg, #161616 0%, #0e0e0e 100%);
+}
+
+.crew-box-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: 0.05em;
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+.crew-box-sub {
+    font-size: 10px;
+    color: var(--gray);
+    margin-top: 4px;
+    font-family: 'DM Mono', monospace;
+}
+
+.crew-expand-btn {
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--yellow);
+    background: rgba(245, 200, 0, 0.1);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-family: 'DM Mono', monospace;
+}
+
+.crew-box-header .expand-icon {
+    display: inline-block;
+    transition: transform 0.3s;
+    font-size: 8px;
+    margin-left: 4px;
+}
+
+.crew-box.expanded .expand-icon {
+    transform: rotate(180deg);
+}
+
+.crew-detail {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s;
+    opacity: 0;
+}
+
+.crew-box.expanded .crew-detail {
+    max-height: 800px;
+    opacity: 1;
+}
+
+.crew-detail-inner {
+    padding: 4px 16px 14px;
+    border-top: 1px solid var(--gray2);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* ── WORKER CARDS ── */
+.worker-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.worker-card:last-child {
+    border-bottom: none;
+    padding-bottom: 4px;
+}
+
+.worker-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.w-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--white);
+}
+
+.w-role {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--gray);
+}
+
+.w-badge {
+    display: inline-block;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 8px;
+    font-family: 'DM Mono', monospace;
+    font-weight: 500;
+    margin-left: 6px;
+    vertical-align: middle;
+}
+
+.w-badge.org {
+    background: rgba(30, 144, 255, 0.2);
+    color: #1e90ff;
+    border: 1px solid rgba(30, 144, 255, 0.4);
+}
+
+.w-badge.tkjp {
+    background: rgba(255, 140, 0, 0.2);
+    color: #ff8c00;
+    border: 1px solid rgba(255, 140, 0, 0.4);
+}
+
+/* ── STATUS DROPDOWN ── */
+.status-select {
+    background: #111;
+    color: var(--white);
+    border: 1px solid var(--gray2);
+    border-radius: 6px;
+    padding: 4px 20px 4px 8px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    appearance: none;
+    outline: none;
+    cursor: pointer;
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%228%22%20height%3D%228%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23F5C800%22%20stroke-width%3D%223%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E");
+    background-repeat: no-repeat;
+    background-position: right 6px center;
+    transition: all 0.2s;
+}
+
+.status-select:focus {
+    border-color: var(--yellow);
+}
+
+.status-select.present {
+    color: var(--safe);
+    border-color: rgba(0, 255, 170, 0.4);
+}
+
+.status-select.leave {
+    color: var(--danger);
+    border-color: rgba(255, 68, 68, 0.4);
+}
+
+.status-select.trip {
+    color: var(--yellow);
+    border-color: rgba(245, 200, 0, 0.4);
+}

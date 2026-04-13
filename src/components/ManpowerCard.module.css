@@ -1,0 +1,102 @@
+.card {
+  background: var(--black2);
+  border: 1px solid var(--gray2);
+  border-radius: 14px;
+  padding: 16px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.25s ease;
+}
+
+.card:hover {
+  border-color: rgba(245, 200, 0, 0.3);
+  transform: translateY(-2px);
+}
+
+.cardWide {
+  grid-column: 1 / -1;
+}
+
+.cardLabel {
+  font-size: 9px;
+  font-family: var(--font-dm-mono);
+  letter-spacing: 0.15em;
+  color: var(--gray);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.shiftGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.shiftCard {
+  background: var(--black2);
+  border: 1px solid var(--gray2);
+  border-radius: 10px;
+  padding: 12px 14px;
+  transition: all 0.3s ease;
+  min-height: 50px;
+}
+
+.shiftCardActive {
+  border-color: rgba(245, 200, 0, 0.4);
+  background: rgba(245, 200, 0, 0.07);
+}
+
+.shiftCardLabel {
+  font-family: var(--font-bebas-neue);
+  font-size: 18px;
+  letter-spacing: 0.05em;
+  color: var(--white);
+  line-height: 1;
+}
+
+.shiftCardActive .shiftCardLabel {
+  color: var(--yellow);
+}
+
+.shiftCardSub {
+  font-size: 9px;
+  font-family: var(--font-dm-mono);
+  color: var(--gray);
+  margin-top: 2px;
+}
+
+.shiftDots {
+  display: flex;
+  gap: 3px;
+  margin-top: 6px;
+  flex-wrap: wrap;
+}
+
+.sdot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--yellow);
+  animation: fadeDot 0.3s ease both;
+}
+
+.sdotStand {
+  background: var(--gray2);
+  border: 1px solid #333;
+}
+
+.shiftCardActive .sdot:not(.sdotStand) {
+  box-shadow: 0 0 4px var(--yellow-glow);
+}
+
+@keyframes fadeDot {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

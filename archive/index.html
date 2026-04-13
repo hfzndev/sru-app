@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>SRU Ops Dashboard — PT Pertamina Patra Niaga</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400;500&family=Space+Grotesk:wght@300;400;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="phone-shell">
+    <div class="content">
+
+      <!-- Status Bar -->
+      <div class="status-bar">
+        <span><span class="live-dot"></span>LIVE</span>
+        <span id="clock">--:--</span>
+        <span id="battery">🔋 100%</span>
+      </div>
+
+      <!-- Header -->
+      <div class="header">
+        <div class="dept-block">
+          <div class="dept-tag">
+            <div class="dept-tag-dot"></div>
+            <span class="dept-tag-text">PT Pertamina Patra Niaga</span>
+          </div>
+          <div class="dept-title"><span>Sulfur Recovery Unit</span> </div>
+          <div class="dept-company">Cilacap Refinery · RU IV</div>
+        </div>
+        <div class="date-badge">📅 <span id="today-date">--</span></div>
+      </div>
+
+      <!-- Shift Banner -->
+      <div class="shift-banner">
+        <div class="shift-info">
+          <div class="label">Active Shift</div>
+          <div class="value" id="shift-name">SHIFT A</div>
+          <div class="sub" id="shift-time">08:00 – 16:00 WIB</div>
+        </div>
+        <div class="status-pill"><span class="live-dot"></span>NORMAL OPS</div>
+      </div>
+
+      <!-- ══ FURNACE ══ -->
+      <div class="section-label">Claus Furnace (93F-401)</div>
+      <div class="cards-grid">
+
+        <!-- Temperature -->
+        <div class="card wide hot">
+          <div class="card-label">Furnace Temperature</div>
+          <div class="temp-arc">
+            <div class="arc-wrap">
+              <svg viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="35" cy="35" r="28" stroke="#222" stroke-width="6" />
+                <circle cx="35" cy="35" r="28" stroke="url(#arcGrad)" stroke-width="6" stroke-dasharray="175.93"
+                  stroke-dashoffset="110" stroke-linecap="round" transform="rotate(-90 35 35)" id="temp-arc-circle" />
+                <defs>
+                  <linearGradient id="arcGrad" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stop-color="#f5c800" />
+                    <stop offset="100%" stop-color="#ff9900" />
+                  </linearGradient>
+                </defs>
+              </svg>
+              <div class="arc-center">
+                <div class="arc-val" id="temp-pct">26%</div>
+                <div class="arc-unit">cap</div>
+              </div>
+            </div>
+            <div class="temp-details">
+              <div class="card-value"><span id="temp-val">342</span><span class="unit">°C</span></div>
+              <div class="card-sub">Max cap: <span style="color:var(--orange)">1,300°C</span></div>
+              <div class="card-sub" style="margin-top:2px">Status: <span class="up">↑ Stable</span></div>
+              <div class="temp-warning">Zone 1 – Normal range</div>
+              <div class="thermo-bar">
+                <div class="thermo-fill" id="thermo"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Acid Gas Feed -->
+        <div class="card">
+          <div class="card-label">Acid Gas Feed</div>
+          <div class="card-value"><span id="furnace-ag-val">0</span><span class="unit">ton</span></div>
+          <div class="card-sub">Target: <span class="up">120 ton</span></div>
+          <div class="thermo-bar">
+            <div class="thermo-fill" id="furnace-ag-bar"></div>
+          </div>
+        </div>
+
+        <!-- Acid Gas Ratio -->
+        <div class="card">
+          <div class="card-label">Acid Gas Ratio</div>
+          <div class="ratio-big" style="color:var(--yellow)" id="ratio-val">1.52</div>
+          <div class="ratio-scale">
+            <div class="ratio-track"></div>
+            <div class="ratio-needle" id="acid-needle" style="left:0%"></div>
+          </div>
+          <div class="ratio-labels"><span>1.0</span><span>1.35</span><span>1.7</span></div>
+          <div class="ratio-status warn">High – Monitor</div>
+        </div>
+
+      </div>
+
+      <!-- ══ PRODUCTION ══ -->
+      <div class="section-label">Production Today</div>
+      <div class="cards-grid">
+        <div class="card wide">
+          <div class="prod-wide">
+            <div class="prod-main">
+              <div class="card-label">Sulfur Product</div>
+              <div class="card-value"><span id="prod-val">0</span><span class="unit">ton</span></div>
+              <div class="card-sub">Target: <span class="up">105 ton</span></div>
+              <div class="thermo-bar" style="margin-top:10px">
+                <div class="thermo-fill" id="prod-bar"></div>
+              </div>
+            </div>
+            <div class="prod-stat">
+              <div class="stat-val" id="prod-pct">0%</div>
+              <div class="stat-label">OF TARGET</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ MANPOWER ══ -->
+      <div class="section-label">Manpower – All Shifts</div>
+      <div class="cards-grid">
+        <div class="card wide">
+          <div class="card-label">Shift Roster — 8 People / Shift</div>
+          <div class="shift-grid" id="shift-grid"></div>
+        </div>
+      </div>
+
+      <!-- ══ MATERIAL STOCK ══ -->
+      <div class="section-label">Material Stock</div>
+      <div class="stock-containers" id="stock-containers"></div>
+
+    </div><!-- /content -->
+
+    <!-- Bottom Nav Injected via JS -->
+    <div id="nav-placeholder"></div>
+
+  </div><!-- /phone-shell -->
+
+  <script src="stock.js"></script>
+  <script src="script.js"></script>
+  <script src="nav.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,189 @@
+/* ── Shared page header styles used across app pages ── */
+
+/* ── HEADER ── */
+.header {
+  padding: clamp(16px, 3vw, 32px) 20px;
+  animation: slideDown 0.6s ease forwards 0.1s;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.deptBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.deptTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--yellow-dim);
+  border: 1px solid rgba(245, 200, 0, 0.25);
+  border-radius: 6px;
+  padding: 3px 10px;
+  width: fit-content;
+}
+
+.deptTagDot {
+  width: 5px;
+  height: 5px;
+  background: var(--yellow);
+  border-radius: 50%;
+}
+
+.deptTagText {
+  font-family: var(--font-dm-mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  color: var(--yellow);
+  text-transform: uppercase;
+}
+
+.deptTitle {
+  font-family: var(--font-jakarta);
+  font-weight: 700;
+  font-size: clamp(20px, 3vw, 28px);
+  letter-spacing: 0.01em;
+  line-height: 1.1;
+  color: var(--white);
+  white-space: nowrap;
+}
+
+.deptTitle span {
+  color: var(--yellow);
+}
+
+.deptCompany {
+  font-family: var(--font-dm-mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: var(--gray);
+}
+
+.dateBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--yellow-dim);
+  border: 1px solid rgba(245, 200, 0, 0.2);
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 11px;
+  color: var(--yellow);
+  font-family: var(--font-dm-mono);
+  letter-spacing: 0.05em;
+  margin-top: 6px;
+}
+
+.liveDot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: var(--safe);
+  border-radius: 50%;
+  margin-right: 5px;
+  animation: pulse-dot 2s infinite;
+}
+
+@keyframes pulse-dot {
+
+  0%,
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(68, 204, 136, 0.6);
+  }
+
+  50% {
+    opacity: 0.7;
+    box-shadow: 0 0 0 4px rgba(68, 204, 136, 0);
+  }
+}
+
+/* ── Card grid layout (used by furnace & other detail pages) ── */
+
+.sectionLabel {
+  font-family: var(--font-dm-mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gray);
+  padding: 0 20px 8px;
+}
+
+.cardsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 16px;
+  padding: 0 20px 20px;
+}
+
+.card {
+  background: var(--black2);
+  border: 1px solid var(--gray2);
+  border-radius: 14px;
+  padding: 16px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.25s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  border-color: rgba(245, 200, 0, 0.3);
+  transform: translateY(-2px);
+}
+
+.cardWide {
+  grid-column: 1 / -1;
+}
+
+.cardHot {
+  border-color: rgba(245, 200, 0, 0.25);
+}
+
+.cardLabel {
+  font-size: 9px;
+  font-family: var(--font-dm-mono);
+  letter-spacing: 0.15em;
+  color: var(--gray);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.cardValue {
+  font-family: var(--font-bebas-neue);
+  font-size: 30px;
+  letter-spacing: 0.03em;
+  line-height: 1;
+  color: var(--white);
+}
+
+.unit {
+  font-size: 12px;
+  color: var(--gray);
+  font-family: var(--font-dm-mono);
+  margin-left: 2px;
+}
+
+.cardSub {
+  font-size: 10px;
+  color: var(--gray);
+  margin-top: 5px;
+  font-family: var(--font-dm-mono);
+}
+
+.up {
+  color: var(--safe);
+}

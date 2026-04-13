@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>SRU Ops Dashboard — Settings</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400;500&family=Space+Grotesk:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="settings.css">
+</head>
+<body>
+  <div class="phone-shell">
+    <div class="content">
+      <!-- Status Bar -->
+      <div class="status-bar">
+        <span><span class="live-dot"></span>LIVE</span>
+        <span id="clock-settings">--:--</span>
+        <span id="battery">🔋 100%</span>
+      </div>
+
+      <!-- Header -->
+      <div class="header">
+        <div class="dept-block">
+          <div class="dept-tag">
+            <div class="dept-tag-dot"></div>
+            <span class="dept-tag-text">System Configuration</span>
+          </div>
+          <div class="dept-title"><span>Settings</span></div>
+          <div class="dept-company">App Control Center</div>
+        </div>
+      </div>
+
+      <div style="padding: 0 20px 80px;">
+        
+        <div class="settings-section">
+          <div class="settings-header">App Preferences</div>
+          
+          <div class="settings-row">
+            <div class="setting-info">
+              <span class="setting-title">Dark Mode</span>
+              <span class="setting-desc">Enable standard dark theme</span>
+            </div>
+            <!-- Disabled standard toggle switch -->
+            <label class="toggle-switch">
+              <input type="checkbox" class="toggle-input" checked disabled>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <div class="settings-row">
+            <div class="setting-info">
+              <span class="setting-title">Push Notifications</span>
+              <span class="setting-desc">Alerts for stock depletion</span>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" class="toggle-input" id="notif-toggle" onchange="toggleNotif()">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="settings-section">
+          <div class="settings-header">Data Storage</div>
+          <div class="settings-row">
+            <div class="setting-info">
+              <span class="setting-title">Clear Local Cache</span>
+              <span class="setting-desc">Reset browser stored data</span>
+            </div>
+            <button class="btn-danger" onclick="clearStorage()">Factory Reset</button>
+          </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 40px; padding-bottom: 20px;">
+          <div style="font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 700; color: var(--gray);">SRU OPERATIONS DASHBOARD</div>
+          <div style="font-family: 'DM Mono', monospace; font-size: 10px; color: var(--gray); margin-top: 4px;">Version 1.2.0-beta</div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Bottom Nav Injected via JS -->
+    <div id="nav-placeholder"></div>
+  </div>
+
+  <script src="settings.js"></script>
+  <script src="nav.js"></script>
+</body>
+</html>

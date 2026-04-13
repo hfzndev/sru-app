@@ -1,0 +1,130 @@
+/* Stock Page specific styling */
+
+.stockManageList {
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.stockCategory {
+    margin-bottom: 24px;
+}
+
+.stockCategoryTitle {
+    font-family: var(--font-dm-mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--yellow);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    border-bottom: 1px solid rgba(245, 200, 0, 0.3);
+    padding-bottom: 6px;
+}
+
+.stockItemCard {
+    background: var(--black3);
+    border: 1px solid var(--gray2);
+    border-radius: var(--radius);
+    padding: 14px;
+    margin-bottom: 10px;
+}
+
+.stockHeaderRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+
+.stockName {
+    font-family: var(--font-space-grotesk);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--white);
+}
+
+.stockAvailAvailable {
+    font-family: var(--font-dm-mono);
+    font-size: 9px;
+    background: rgba(68, 204, 136, 0.1);
+    color: var(--safe);
+    padding: 3px 6px;
+    border-radius: 4px;
+    border: 1px solid rgba(68, 204, 136, 0.3);
+}
+
+.stockAvailEmpty {
+    font-family: var(--font-dm-mono);
+    font-size: 9px;
+    background: rgba(255, 68, 68, 0.1);
+    color: var(--danger);
+    padding: 3px 6px;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 68, 68, 0.3);
+}
+
+.stockQty {
+    font-family: var(--font-bebas-neue);
+    font-size: 26px;
+    color: var(--white);
+    margin-bottom: 12px;
+}
+
+.stockQty span {
+    font-family: var(--font-dm-mono);
+    font-size: 11px;
+    color: var(--gray);
+    margin-left: 4px;
+}
+
+.stockActionForm {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.stockActionForm input[type="number"] {
+    background: var(--black2);
+    border: 1px solid var(--gray2);
+    color: var(--white);
+    padding: 8px 10px;
+    border-radius: 6px;
+    font-family: var(--font-dm-mono);
+    font-size: 12px;
+    width: 80px;
+    outline: none;
+}
+
+.stockActionForm input[type="number"]:focus {
+    border-color: var(--yellow);
+}
+
+.stockActionForm select {
+    background: var(--black2);
+    border: 1px solid var(--gray2);
+    color: var(--white);
+    padding: 8px 6px;
+    border-radius: 6px;
+    font-family: var(--font-space-grotesk);
+    font-size: 12px;
+    outline: none;
+}
+
+.stockActionForm button {
+    background: var(--yellow);
+    color: var(--black);
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-family: var(--font-space-grotesk);
+    font-weight: 600;
+    font-size: 12px;
+    cursor: pointer;
+    flex-grow: 1;
+    transition: 0.2s;
+}
+
+.stockActionForm button:active {
+    opacity: 0.8;
+}
