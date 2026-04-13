@@ -7,10 +7,12 @@ export async function GET(req) {
   try {
     await dbConnect();
     
-    // Check if target date is requested, otherwise default to today
+    // Check if target date is requested, otherwise default to today (forced to UTC+7 WIB for Indonesia)
     const url = new URL(req.url);
     const dateParam = url.searchParams.get('date');
-    const targetDate = dateParam || new Date().toISOString().split('T')[0];
+    const now = new Date();
+    const wibTime = new Date(now.getTime() + 7 * 60 * 60 * 1000); // Add 7 hours for UTC+7
+    const targetDate = dateParam || wibTime.toISOString().split('T')[0];
 
     // Fetch master config or fallback to user default
     let config = await AppConfig.findOne({ key: 'shift_calibrator' });
