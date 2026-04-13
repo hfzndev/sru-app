@@ -2,14 +2,6 @@
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import styles from './page.module.css'
-import { workers } from './_data/workers'
-
-function getDailyWorker() {
-  const now = new Date()
-  const start = new Date(now.getFullYear(), 0, 0)
-  const dayOfYear = Math.floor((now - start) / 86400000)
-  return workers[dayOfYear % workers.length]
-}
 
 function Placeholder({ className, label }) {
   return (
@@ -47,7 +39,7 @@ export default function LandingPage() {
   const [scrolled, setScrolled] = useState(false)
   const [visible, setVisible] = useState({})
   const [newsData, setNewsData] = useState([])
-  const worker = getDailyWorker()
+  const [featuredWorker, setFeaturedWorker] = useState(null)
 
   // Ref for drag-to-scroll
   const scrollRef = useRef(null)
@@ -81,6 +73,13 @@ export default function LandingPage() {
         }
       })
       .catch(err => console.error(err))
+
+    fetch('/api/employees/daily')
+      .then(res => res.json())
+      .then(data => {
+        if (data) setFeaturedWorker(data)
+      })
+      .catch(err => console.error("Failed to load featured worker", err))
   }, [])
 
   useEffect(() => {
@@ -253,20 +252,28 @@ export default function LandingPage() {
             <span className={styles.sectionTag}>GET TO KNOW US</span>
             <div className={styles.labelLine} />
           </div>
-          <div className={styles.peopleCard}>
-            <div className={styles.peopleImgWrap}>
-              <Placeholder className={styles.peopleImg} label={worker.name} />
-              <div className={styles.peopleBadge}>Featured Today</div>
-            </div>
-            <div className={styles.peopleInfo}>
-              <div className={styles.peopleMeta}>
-                Crew {worker.crew} &nbsp;·&nbsp; {worker.years} Years of Service
+          {featuredWorker ? (
+            <div className={styles.peopleCard}>
+              <div className={styles.peopleImgWrap}>
+                {featuredWorker.imageBase64 ? (
+                  <img src={featuredWorker.imageBase64} alt={featuredWorker.name} className={styles.peopleImg} style={{ objectFit: 'cover' }} />
+                ) : (
+                  <Placeholder className={styles.peopleImg} label={featuredWorker.name} />
+                )}
+                <div className={styles.peopleBadge}>Featured Today</div>
               </div>
-              <h2 className={styles.peopleName}>{worker.name}</h2>
-              <div className={styles.peopleRole}>{worker.role}</div>
-              <p className={styles.peopleBio}>{worker.bio}</p>
+              <div className={styles.peopleInfo}>
+                <div className={styles.peopleMeta}>
+                  Crew {featuredWorker.crew} &nbsp;·&nbsp; {featuredWorker.years} Years of Service
+                </div>
+                <h2 className={styles.peopleName}>{featuredWorker.name}</h2>
+                <div className={styles.peopleRole}>{featuredWorker.role}</div>
+                <p className={styles.peopleBio}>{featuredWorker.bio}</p>
+              </div>
             </div>
-          </div>
+          ) : (
+            <div style={{ color: 'var(--gray)', fontFamily: 'var(--font-dm-mono)' }}>No featured employee profile loaded.</div>
+          )}
         </div>
       </section>
 

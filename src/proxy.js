@@ -12,5 +12,4 @@ export default withAuth({
   }
 })
 
-// Specify the matcher covering all restricted pages
-export const config = { matcher: ["/furnace", "/crew", "/stock", "/settings"] }
+export const config = { matcher: ["/furnace", "/crew", "/stock", "/settings", "/dashboard", "/operation", "/news", "/employee"] }

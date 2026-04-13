@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useSession, signOut } from 'next-auth/react'
-import { Menu, X, LayoutDashboard, Flame, Package, Users, Settings, LogOut, Newspaper } from 'lucide-react'
+import { Menu, X, LayoutDashboard, Flame, Package, Users, Settings, LogOut, Newspaper, BadgeCheck as UserBadge } from 'lucide-react'
 import styles from './Sidebar.module.css'
 
 export default function Sidebar() {
@@ -34,6 +34,7 @@ export default function Sidebar() {
     { name: 'Stock', path: '/stock', icon: <Package size={20} /> },
     { name: 'Crew', path: '/crew', icon: <Users size={20} /> },
     { name: 'News', path: '/news', icon: <Newspaper size={20} /> },
+    { name: 'Employees', path: '/employee', icon: <UserBadge size={20} /> },
     { name: 'Settings', path: '/settings', icon: <Settings size={20} /> },
   ]
 

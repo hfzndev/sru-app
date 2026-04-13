@@ -2,8 +2,9 @@
 import { useState } from "react"
 import { signIn } from "next-auth/react"
 import { useRouter } from "next/navigation"
+import Link from "next/link"
 
-export default function LandingPage() {
+export default function LoginPage() {
   const router = useRouter()
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
@@ -36,7 +37,7 @@ export default function LandingPage() {
       <div style={{ marginBottom: '40px', textAlign: 'center' }}>
         <img src="/SRU Logo CC.png" alt="SRU Logo" style={{ height: '64px', width: '64px', borderRadius: '50%', objectFit: 'cover' }} />
         <h1 style={{ fontFamily: 'var(--font-space-grotesk)', color: 'var(--white)', fontSize: '24px', letterSpacing: '0.05em' }}>
-          SRU Operations
+          Sign In
         </h1>
         <p style={{ fontFamily: 'var(--font-dm-mono)', color: 'var(--gray)', fontSize: '12px', marginTop: '8px' }}>
           Restricted Access Control
@@ -63,7 +64,6 @@ export default function LandingPage() {
               onChange={(e) => setUsername(e.target.value)}
               required
               style={{ width: '100%', padding: '10px 12px', background: 'var(--black2)', border: '1px solid var(--gray2)', color: 'var(--white)', borderRadius: '6px', fontFamily: 'var(--font-space-grotesk)', outline: 'none' }}
-              placeholder="admin"
             />
           </div>
 
@@ -75,7 +75,6 @@ export default function LandingPage() {
               onChange={(e) => setPassword(e.target.value)}
               required
               style={{ width: '100%', padding: '10px 12px', background: 'var(--black2)', border: '1px solid var(--gray2)', color: 'var(--white)', borderRadius: '6px', fontFamily: 'var(--font-space-grotesk)', outline: 'none' }}
-              placeholder="••••••••"
             />
           </div>
 
@@ -87,6 +86,24 @@ export default function LandingPage() {
             {loading ? 'Authenticating...' : 'Sign In'}
           </button>
         </form>
+      </div>
+      <div style={{ width: '100%', maxWidth: '320px', marginTop: '24px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+        <Link
+          href="/register"
+          style={{ width: '100%', padding: '12px', background: 'transparent', color: 'var(--yellow)', border: '1px solid var(--yellow)', borderRadius: '6px', fontFamily: 'var(--font-space-grotesk)', fontSize: '13px', fontWeight: '600', cursor: 'pointer', textAlign: 'center', textDecoration: 'none', transition: '0.2s', display: 'block' }}
+          onMouseOver={e => { e.target.style.background = 'var(--yellow-dim)' }}
+          onMouseOut={e => { e.target.style.background = 'transparent' }}
+        >
+          Create New Account
+        </Link>
+        <Link
+          href="/"
+          style={{ width: '100%', padding: '12px', background: 'transparent', color: 'var(--gray)', border: '1px solid var(--gray2)', borderRadius: '6px', fontFamily: 'var(--font-space-grotesk)', fontSize: '13px', fontWeight: '600', cursor: 'pointer', textAlign: 'center', textDecoration: 'none', transition: '0.2s', display: 'block' }}
+          onMouseOver={e => { e.target.style.color = 'var(--white)'; e.target.style.borderColor = 'var(--gray)' }}
+          onMouseOut={e => { e.target.style.color = 'var(--gray)'; e.target.style.borderColor = 'var(--gray2)' }}
+        >
+          &larr; Go Back
+        </Link>
       </div>
 
     </div>
