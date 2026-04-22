@@ -3,6 +3,7 @@ import { useState, useEffect } from "react"
 import styles from "./dashboard.module.css"
 import sharedStyles from "../shared.module.css"
 import FurnaceCard from "@/components/FurnaceCard"
+import HighlightsCard from "@/components/HighlightsCard"
 import ManpowerCard from "@/components/ManpowerCard"
 
 export default function Dashboard() {
@@ -11,6 +12,34 @@ export default function Dashboard() {
   const [prodPct, setProdPct] = useState(0)
   const [activeShift, setActiveShift] = useState('...');
   const [activeShiftName, setActiveShiftName] = useState('Prediction Engine Loading...');
+  const [dashboardData, setDashboardData] = useState(null);
+  const [chartData, setChartData] = useState(null);
+  const [logData, setLogData] = useState(null);
+  const [highlights, setHighlights] = useState([]);
+
+  useEffect(() => {
+    fetch('/api/dashboard-data')
+      .then(res => res.json())
+      .then(data => setDashboardData(data))
+      .catch(console.error);
+
+    fetch('/api/dashboard-data/chart')
+      .then(res => res.json())
+      .then(data => setChartData(data))
+      .catch(console.error);
+
+    // Fetch today's raw operation log for full detail display
+    fetch('/api/operation-log')
+      .then(res => res.json())
+      .then(data => setLogData(data))
+      .catch(console.error);
+
+    // Fetch persistent highlights
+    fetch('/api/operation-log/highlights')
+      .then(res => res.json())
+      .then(data => Array.isArray(data) ? setHighlights(data) : setHighlights([]))
+      .catch(console.error);
+  }, []);
 
   useEffect(() => {
     const updateClock = () => {
@@ -24,6 +53,21 @@ export default function Dashboard() {
     const intv = setInterval(updateClock, 30000);
     return () => clearInterval(intv);
   }, []);
+
+  // Add this custom helper function right above your fetchActiveShift useEffect!
+  const setShiftTypeStateLocalHelper = (h) => {
+    // If the API hasn't loaded mapping yet, do nothing
+    if (activeShiftName === 'Prediction Engine Loading...') return;
+
+    // Local mathematical flip based purely on laptop clock!
+    if (h >= 8 && h < 16) {
+      setActiveShiftName((prev) => prev.replace(/Night \d+|Mid Day \d+/, 'Morning $1'));
+    } else if (h >= 16 && h < 24) {
+      setActiveShiftName((prev) => prev.replace(/Morning \d+|Night \d+/, 'Mid Day $1'));
+    } else {
+      setActiveShiftName((prev) => prev.replace(/Morning \d+|Mid Day \d+/, 'Night $1'));
+    }
+  };
 
   useEffect(() => {
     const fetchActiveShift = async () => {
@@ -81,14 +125,21 @@ export default function Dashboard() {
     };
 
     fetchActiveShift();
-    const secTimer = setInterval(fetchActiveShift, 60000);
-    return () => clearInterval(secTimer);
+
+    // We replaced the API poll with a pure local clock checker!
+    // It just checks if the hour changed to update the String. No database involved.
+    const localChecker = setInterval(() => {
+      const h = new Date().getHours();
+      setShiftTypeStateLocalHelper(h);
+    }, 60000);
+
+    return () => clearInterval(localChecker);
   }, []);
 
   useEffect(() => {
     // Simulate data loading animation
     setTimeout(() => {
-      setProdPct(80) // 84 target 
+      setProdPct(50) // 84 target 
     }, 700)
   }, [])
 
@@ -103,6 +154,15 @@ export default function Dashboard() {
           <div className={sharedStyles.deptTitle}><span>SRU & IPAL Dashboard</span> </div>
           <div className={sharedStyles.deptCompany}>PRODUCTION II · Cilacap Refinery</div>
         </div>
+        <span className={styles.timeValue}>{time} <span className={styles.tz}>WIB</span></span>
+      </div>
+
+      <div className={styles.dateBanner}>
+        <div className={styles.dateRow}>
+          <span className={styles.dateLabel}>TODAY</span>
+          <span className={styles.dateValue}>{date}</span>
+        </div>
+
       </div>
 
       <div className={styles.shiftBanner}>
@@ -114,29 +174,15 @@ export default function Dashboard() {
         <div className={styles.statusPill}><span className={styles.liveDot}></span>NORMAL OPERATION</div>
       </div>
 
-      <div className={styles.sectionLabel}>Claus Furnace (93F-401)</div>
+
+      <div className={styles.sectionLabel}>SRU OPERATIONS REPORT</div>
       <div className={sharedStyles.cardsGrid}>
-        <FurnaceCard />
+        <FurnaceCard data={dashboardData} chartData={chartData} logData={logData} />
       </div>
 
-      <div className={styles.sectionLabel}>Production Today</div>
+      <div className={styles.sectionLabel}>Highlights</div>
       <div className={sharedStyles.cardsGrid}>
-        <div className={`${sharedStyles.card} ${styles.cardWide}`}>
-          <div className={styles.prodWide}>
-            <div className={styles.prodMain}>
-              <div className={styles.cardLabel}>Sulfur Product</div>
-              <div className={styles.cardValue}><span>84</span><span className={styles.unit}>ton</span></div>
-              <div className={styles.cardSub}>Target: <span className={styles.up}>105 ton</span></div>
-              <div className={styles.thermoBar} style={{ marginTop: '10px' }}>
-                <div className={styles.thermoFill} style={{ width: `${prodPct}%` }}></div>
-              </div>
-            </div>
-            <div className={styles.prodStat}>
-              <div className={styles.statVal}>{prodPct}%</div>
-              <div className={styles.statLabel}>OF TARGET</div>
-            </div>
-          </div>
-        </div>
+        <HighlightsCard highlights={highlights} />
       </div>
 
       <div className={styles.sectionLabel}>Manpower – All Shifts</div>

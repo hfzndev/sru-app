@@ -35,7 +35,7 @@ export default function LoginPage() {
     <div style={{ padding: '40px 20px', display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100%', justifyContent: 'center' }}>
 
       <div style={{ marginBottom: '40px', textAlign: 'center' }}>
-        <img src="/SRU Logo CC.png" alt="SRU Logo" style={{ height: '64px', width: '64px', borderRadius: '50%', objectFit: 'cover' }} />
+        <img src="/SRU Logo CC.png" alt="SRU Logo" style={{ display: "block", margin: "0 auto", height: '64px', width: '64px', borderRadius: '50%', objectFit: 'cover', justifyContent: "center", alignItems: "center" }} />
         <h1 style={{ fontFamily: 'var(--font-space-grotesk)', color: 'var(--white)', fontSize: '24px', letterSpacing: '0.05em' }}>
           Sign In
         </h1>

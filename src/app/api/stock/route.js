@@ -39,8 +39,8 @@ export async function PUT(req) {
     }
 
     const amt = parseFloat(amount);
-    if (amt <= 0) {
-      return NextResponse.json({ message: "Amount must be positive." }, { status: 400 });
+    if (amt < 0) {
+      return NextResponse.json({ message: "Amount cannot be negative." }, { status: 400 });
     }
 
     await dbConnect();
@@ -56,7 +56,9 @@ export async function PUT(req) {
     }
 
     // Mathematical update
-    if (action === "add") {
+    if (action === "set") {
+      item.qty = amt;
+    } else if (action === "add") {
       item.qty += amt;
     } else if (action === "reduce") {
       item.qty = Math.max(0, item.qty - amt);

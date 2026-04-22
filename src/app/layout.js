@@ -2,7 +2,7 @@ import { DM_Mono, Space_Grotesk, Bebas_Neue } from 'next/font/google'
 import './globals.css'
 import Providers from '@/components/Providers'
 
-const dmMono = DM_Mono({ 
+const dmMono = DM_Mono({
   weight: ['300', '400', '500'],
   subsets: ['latin'],
   variable: '--font-dm-mono'
@@ -21,7 +21,7 @@ const bebasNeue = Bebas_Neue({
 })
 
 export const metadata = {
-  title: 'SRU Operations — PT Pertamina Patra Niaga',
+  title: 'SRU IPAL - Refinery Unit Cilacap',
   description: 'Sulfur Recovery Unit Operations Dashboard, Refinery Unit IV Cilacap',
 }
 

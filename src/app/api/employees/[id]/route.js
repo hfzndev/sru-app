@@ -33,7 +33,7 @@ export async function PUT(req, { params }) {
     const updatedEmployee = await Employee.findByIdAndUpdate(id, updateData, { new: true });
 
     if (!updatedEmployee) {
-       return NextResponse.json({ message: "Employee not found" }, { status: 404 });
+      return NextResponse.json({ message: "Employee not found" }, { status: 404 });
     }
 
     return NextResponse.json(updatedEmployee, { status: 200 });
@@ -53,9 +53,9 @@ export async function DELETE(req, { params }) {
 
     await dbConnect();
     const deletedEmployee = await Employee.findByIdAndDelete(id);
-    
+
     if (!deletedEmployee) {
-       return NextResponse.json({ message: "Employee not found" }, { status: 404 });
+      return NextResponse.json({ message: "Employee not found" }, { status: 404 });
     }
 
     return NextResponse.json({ message: "Employee deleted successfully" }, { status: 200 });

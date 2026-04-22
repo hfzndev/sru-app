@@ -122,7 +122,63 @@
   margin-top: 6px;
 }
 
+/* ── DATE BANNER ── */
+.dateBanner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 0 10px;
+  padding: 12px 20px;
+  border-radius: var(--radius);
+  animation: slideUp 0.4s ease forwards 0.1s;
+}
+
+.dateRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dateLabel {
+  font-family: var(--font-jakarta);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--white);
+  font-weight: 700;
+  text-transform: uppercase;
+  background: var(--yellow-dim);
+  border: 1px solid var(--yellow);
+  border-radius: 4px;
+
+  padding: 2px 12px;
+}
+
+.dateValue {
+  font-family: var(--font-jakarta);
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--white);
+  letter-spacing: 0.01em;
+}
+
+.timeValue {
+  font-family: var(--font-bebas-neue);
+  font-size: 28px;
+  color: var(--yellow);
+  letter-spacing: 0.05em;
+  line-height: 1;
+}
+
+.tz {
+  font-family: var(--font-dm-mono);
+  font-size: 12px;
+  color: var(--gray);
+  letter-spacing: 0.1em;
+  margin-left: 4px;
+}
+
 /* ── SHIFT BANNER ── */
+
 .shiftBanner {
   margin: 0 0 24px;
   background: var(--black2);
@@ -136,6 +192,8 @@
   overflow: hidden;
   animation: slideUp 0.5s ease forwards 0.2s;
   transition: border-color 0.3s ease;
+
+
 }
 
 .shiftBanner:hover {
@@ -214,7 +272,7 @@
   font-family: var(--font-dm-mono);
   font-size: 9px;
   letter-spacing: 0.2em;
-  color: var(--gray);
+  color: var(--white);
   text-transform: uppercase;
   display: flex;
   align-items: center;
@@ -237,7 +295,7 @@
   font-size: 9px;
   font-family: var(--font-dm-mono);
   letter-spacing: 0.15em;
-  color: var(--gray);
+  color: var(--white);
   text-transform: uppercase;
   margin-bottom: 4px;
 }

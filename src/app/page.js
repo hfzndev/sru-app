@@ -27,12 +27,12 @@ const aboutCards = [
 ]
 
 const opsParams = [
-  { label: 'Sulfur Production', value: '—', unit: 'ton', note: 'Daily target: 105 ton' },
-  { label: 'Feed Gas Flow', value: '—', unit: 'MMSCFD', note: 'Normal: 1.2 – 1.8' },
-  { label: 'Furnace Temp', value: '—', unit: '°C', note: '93F-401 Claus Furnace' },
-  { label: 'SO₂ Tail Gas', value: '—', unit: 'ppm', note: 'ENV Limit: < 500 ppm' },
-  { label: 'H₂S Conversion', value: '—', unit: '%', note: 'Target: > 98%' },
-  { label: 'Active Crew', value: '—', unit: '', note: 'Current on-shift crew' },
+  { label: 'Sulfur Production', value: '7.19', unit: 'ton', note: 'Daily target: 8 ton' },
+  { label: 'Feed Gas Total', value: '3505', unit: 'kg/hr', note: 'Normal: 3000 – 4000' },
+  { label: 'Sulfur Inventory', value: '390.58', unit: 'ton', note: 'Daily producing sulfur' },
+  { label: 'Feed Capacity', value: '14.02', unit: '%', note: 'Normal : 100%' },
+  { label: 'Acid Gas Total', value: '1061', unit: 'kg/hr', note: 'Min. 900' },
+  { label: 'Active Crew', value: '8', unit: 'people', note: 'On shift duty' },
 ]
 
 export default function LandingPage() {
@@ -40,6 +40,7 @@ export default function LandingPage() {
   const [visible, setVisible] = useState({})
   const [newsData, setNewsData] = useState([])
   const [featuredWorker, setFeaturedWorker] = useState(null)
+  const [dashboardData, setDashboardData] = useState(null)
 
   // Ref for drag-to-scroll
   const scrollRef = useRef(null)
@@ -80,6 +81,11 @@ export default function LandingPage() {
         if (data) setFeaturedWorker(data)
       })
       .catch(err => console.error("Failed to load featured worker", err))
+
+    fetch('/api/dashboard-data')
+      .then(res => res.json())
+      .then(data => setDashboardData(data))
+      .catch(err => console.error("Failed to load dashboard data", err))
   }, [])
 
   useEffect(() => {
@@ -129,14 +135,14 @@ export default function LandingPage() {
             PT Pertamina Patra Niaga · Cilacap Refinery · Est. 2004
           </div>
           <h1 className={styles.heroTitle}>
-            Sulfur Recovery<br />Unit Operations
+            SRU & IPAL<br />Online Dashboard
           </h1>
           <p className={styles.heroSub}>
-            Real-time monitoring and centralized control<br />
-            for Refinery Unit IV Cilacap.
+            Online dashboard for real-time monitoring and online data center <br />
+            and also for everyone who wants to know about SRU & IPAL.
           </p>
           <Link href="/dashboard" className={styles.heroBtn}>
-            Enter Dashboard <span className={styles.heroBtnArrow}>→</span>
+            Explore <span className={styles.heroBtnArrow}>→</span>
           </Link>
         </div>
 
@@ -186,7 +192,7 @@ export default function LandingPage() {
           </div>
           <h2 className={styles.sectionTitle}>Latest Updates</h2>
         </div>
-        <div 
+        <div
           className={styles.featuredScroll}
           ref={scrollRef}
           onMouseDown={onMouseDown}
@@ -219,16 +225,23 @@ export default function LandingPage() {
             <span className={styles.sectionTag}>OPERATIONS SUMMARY</span>
             <div className={styles.labelLine} />
           </div>
-          <h2 className={styles.sectionTitle}>Today's Overview</h2>
+          <h2 className={styles.sectionTitle}>Dashboard Overview</h2>
           <p className={styles.sectionSub}>
-            Live operational parameters from the SRU plant floor. Data updated every shift.
+            Daily operational data summary from SRU & IPAL including production, efficiency, and emission data.
           </p>
           <div className={styles.opsGrid}>
-            {opsParams.map((p, i) => (
+            {(dashboardData ? [
+              { label: 'Sulfur Production', value: dashboardData.sulfurProduction, unit: 'ton', note: 'Daily target: 8 ton' },
+              { label: 'Feed Gas Total', value: dashboardData.feedGasTotal, unit: 'kg/hr', note: 'Normal: 3000 – 4000' },
+              { label: 'Sulfur Inventory', value: dashboardData.sulfurInventory, unit: 'ton', note: 'Daily producing sulfur' },
+              { label: 'Feed Capacity', value: dashboardData.u91FeedGasCapacity, unit: '%', note: 'Normal : 100%' },
+              { label: 'Acid Gas Total', value: dashboardData.u93AcidGasTotal, unit: 'kg/hr', note: 'Min. 900' },
+              { label: 'Active Crew', value: dashboardData.activeCrew, unit: 'people', note: 'On shift duty' },
+            ] : opsParams).map((p, i) => (
               <div key={i} className={styles.opsCard}>
                 <div className={styles.opsLabel}>{p.label}</div>
                 <div className={styles.opsValue}>
-                  {p.value}
+                  {p.value || '--'}
                   {p.unit && <span className={styles.opsUnit}>{p.unit}</span>}
                 </div>
                 <div className={styles.opsNote}>{p.note}</div>

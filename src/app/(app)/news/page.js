@@ -7,7 +7,7 @@ export default function NewsManagement() {
   const [news, setNews] = useState([])
   const [loading, setLoading] = useState(true)
   const [showForm, setShowForm] = useState(false)
-  
+
   // Form State
   const [formData, setFormData] = useState({
     title: "",
@@ -55,7 +55,7 @@ export default function NewsManagement() {
 
   const handleDelete = async (id) => {
     if (!confirm("Are you sure you want to delete this news article?")) return
-    
+
     try {
       const res = await fetch(`/api/news/${id}`, { method: "DELETE" })
       if (res.ok) fetchNews()
@@ -68,7 +68,7 @@ export default function NewsManagement() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setSaving(true)
-    
+
     const url = editingId ? `/api/news/${editingId}` : "/api/news"
     const method = editingId ? "PUT" : "POST"
 
@@ -108,7 +108,7 @@ export default function NewsManagement() {
       </div>
 
       <div style={{ padding: "0 20px 80px" }}>
-        
+
         {/* Toggle Form Button */}
         <button
           onClick={() => {
@@ -126,32 +126,35 @@ export default function NewsManagement() {
         {/* Editor Form */}
         <div style={{ maxHeight: showForm ? "800px" : "0", overflow: "hidden", transition: "max-height 0.4s ease-in-out" }}>
           <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "12px", background: "var(--black2)", border: "1px solid var(--gray2)", borderRadius: "12px", padding: "20px", marginBottom: "20px" }}>
-            
-            <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
-               <div style={{ flex: "1 1 300px", display: "flex", flexDirection: "column", gap: "4px" }}>
-                 <label style={{ color: "var(--gray)", fontSize: "10px", fontFamily: "var(--font-dm-mono)", textTransform: "uppercase" }}>Article Title</label>
-                 <input type="text" name="title" required value={formData.title} onChange={handleInputChange} placeholder="e.g. SRU Quarterly Update" style={{ background: "#111", color: "var(--white)", border: "1px solid var(--gray2)", borderRadius: "6px", padding: "8px 10px", fontSize: "13px", outline: "none", fontFamily: "var(--font-jakarta)" }} />
-               </div>
-               
-               <div style={{ flex: "1 1 150px", display: "flex", flexDirection: "column", gap: "4px" }}>
-                 <label style={{ color: "var(--gray)", fontSize: "10px", fontFamily: "var(--font-dm-mono)", textTransform: "uppercase" }}>Date String</label>
-                 <input type="text" name="date" required value={formData.date} onChange={handleInputChange} placeholder="e.g. OCT 20, 2025" style={{ background: "#111", color: "var(--white)", border: "1px solid var(--gray2)", borderRadius: "6px", padding: "8px 10px", fontSize: "13px", outline: "none", fontFamily: "var(--font-jakarta)" }} />
-               </div>
 
-               <div style={{ flex: "1 1 150px", display: "flex", flexDirection: "column", gap: "4px" }}>
-                 <label style={{ color: "var(--gray)", fontSize: "10px", fontFamily: "var(--font-dm-mono)", textTransform: "uppercase" }}>Category</label>
-                 <select name="category" required value={formData.category} onChange={handleInputChange} style={{ background: "#111", color: "var(--white)", border: "1px solid var(--gray2)", borderRadius: "6px", padding: "8px 10px", fontSize: "13px", outline: "none", cursor: "pointer", appearance: "none" }}>
-                   <option value="Update">Update</option>
-                   <option value="Alert">Alert</option>
-                   <option value="Maintenance">Maintenance</option>
-                   <option value="Project">Project</option>
-                 </select>
-               </div>
+            <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
+              <div style={{ flex: "1 1 300px", display: "flex", flexDirection: "column", gap: "4px" }}>
+                <label style={{ color: "var(--gray)", fontSize: "10px", fontFamily: "var(--font-dm-mono)", textTransform: "uppercase" }}>Article Title</label>
+                <input type="text" name="title" required value={formData.title} onChange={handleInputChange} placeholder="Write a title here..." style={{ background: "#111", color: "var(--white)", border: "1px solid var(--gray2)", borderRadius: "6px", padding: "8px 10px", fontSize: "13px", outline: "none", fontFamily: "var(--font-jakarta)" }} />
+              </div>
+
+              <div style={{ flex: "1 1 150px", display: "flex", flexDirection: "column", gap: "4px" }}>
+                <label style={{ color: "var(--gray)", fontSize: "10px", fontFamily: "var(--font-dm-mono)", textTransform: "uppercase" }}>Date</label>
+                <input type="date" name="date" required value={formData.date} onChange={handleInputChange} onClick={(e) => e.target.showPicker()} onFocus={(e) => e.target.showPicker()} style={{ background: "#111", color: "var(--gray)", border: "1px solid var(--gray2)", borderRadius: "6px", padding: "8px 10px", fontSize: "13px", outline: "none", fontFamily: "var(--font-jakarta)", cursor: "pointer" }} />
+              </div>
+
+              <div style={{ flex: "1 1 150px", display: "flex", flexDirection: "column", gap: "4px" }}>
+                <label style={{ color: "var(--gray)", fontSize: "10px", fontFamily: "var(--font-dm-mono)", textTransform: "uppercase" }}>Category</label>
+                <select name="category" required value={formData.category} onChange={handleInputChange} style={{ background: "#111", color: "var(--white)", border: "1px solid var(--gray2)", borderRadius: "6px", padding: "8px 10px", fontSize: "13px", outline: "none", cursor: "pointer", appearance: "none" }}>
+                  <option value="Update">Update</option>
+                  <option value="Alert">Alert</option>
+                  <option value="Maintenance">Maintenance</option>
+                  <option value="Project">Project</option>
+                </select>
+              </div>
             </div>
 
             <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
-              <label style={{ color: "var(--gray)", fontSize: "10px", fontFamily: "var(--font-dm-mono)", textTransform: "uppercase" }}>Short Excerpt (shows on landing page)</label>
-              <textarea name="excerpt" required value={formData.excerpt} onChange={handleInputChange} placeholder="A short description..." rows={2} style={{ background: "#111", color: "var(--white)", border: "1px solid var(--gray2)", borderRadius: "6px", padding: "8px 10px", fontSize: "13px", outline: "none", fontFamily: "var(--font-jakarta)", resize: "vertical" }} />
+              <label style={{ color: "var(--gray)", fontSize: "10px", fontFamily: "var(--font-dm-mono)", textTransform: "uppercase", display: "flex", justifyContent: "space-between" }}>
+                <span>Caption</span>
+                <span style={{ color: formData.excerpt.length > 200 ? "var(--danger)" : "var(--yellow)" }}>{formData.excerpt.length}/200</span>
+              </label>
+              <textarea name="excerpt" maxLength={200} required value={formData.excerpt} onChange={handleInputChange} placeholder="Write a caption here..." rows={2} style={{ background: "#111", color: "var(--white)", border: "1px solid var(--gray2)", borderRadius: "6px", padding: "8px 10px", fontSize: "13px", outline: "none", fontFamily: "var(--font-jakarta)", resize: "vertical" }} />
             </div>
 
             <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
@@ -171,7 +174,7 @@ export default function NewsManagement() {
         ) : (
           <div style={{ display: "grid", gap: "12px" }}>
             {news.length === 0 && <div style={{ color: "var(--gray)", textAlign: "center", marginTop: "20px", fontFamily: "var(--font-jakarta)" }}>No news articles found.</div>}
-            
+
             {news.map(article => (
               <div key={article._id} style={{ background: "var(--black2)", border: "1px solid var(--gray2)", borderRadius: "12px", padding: "16px", display: "flex", flexDirection: "column", gap: "8px" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
@@ -180,7 +183,7 @@ export default function NewsManagement() {
                     <div style={{ fontSize: "16px", fontWeight: "700", color: "var(--white)", fontFamily: "var(--font-jakarta)", marginBottom: "4px" }}>{article.title}</div>
                     <div style={{ fontSize: "12px", color: "var(--gray)", fontFamily: "var(--font-jakarta)", display: "-webkit-box", WebkitLineClamp: "2", WebkitBoxOrient: "vertical", overflow: "hidden" }}>{article.excerpt}</div>
                   </div>
-                  
+
                   <div style={{ display: "flex", gap: "8px", marginLeft: "12px" }}>
                     <button onClick={() => handleEdit(article)} style={{ background: "transparent", border: "none", color: "var(--gray)", cursor: "pointer", padding: "4px", transition: "0.2s" }} title="Edit"><Pencil size={16} /></button>
                     <button onClick={() => handleDelete(article._id)} style={{ background: "transparent", border: "none", color: "var(--danger)", cursor: "pointer", padding: "4px", transition: "0.2s" }} title="Delete"><Trash2 size={16} /></button>

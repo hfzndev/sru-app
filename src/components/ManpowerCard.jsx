@@ -32,7 +32,7 @@ export default function ManpowerCard() {
 
         // Fetch mathematical prediction for TODAY timezone protected
         const shiftRes = await fetch(`/api/shift?date=${localDateStr}`);
-        
+
         if (shiftRes.ok) {
           const shiftJson = await shiftRes.json();
           setShiftMap(shiftJson.assignments);
@@ -45,8 +45,7 @@ export default function ManpowerCard() {
       }
     };
     fetchData();
-    const pollTimer = setInterval(fetchData, 60000);
-    return () => clearInterval(pollTimer);
+    // We deleted the API setInterval loop completely. We only fetch once!
   }, []);
 
   const getSubNumber = (shiftName, shiftPhase) => {
@@ -70,10 +69,10 @@ export default function ManpowerCard() {
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
         <div className={styles.cardLabel}>Shift Roster Mapping</div>
         {!loading && shiftMap && (
-           <div style={{ fontSize: '10px', color: 'var(--gray)', fontFamily: 'var(--font-dm-mono)' }}>LIVE PREDICTION</div>
+          <div style={{ fontSize: '10px', color: 'var(--gray)', fontFamily: 'var(--font-dm-mono)' }}>LIVE PREDICTION</div>
         )}
       </div>
-      
+
       {loading ? (
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100px', color: 'var(--gray)', fontSize: '12px' }}>
           Initializing Predictive Engine...
@@ -89,7 +88,7 @@ export default function ManpowerCard() {
                 <div className={styles.shiftCardLabel} style={{ display: 'flex', justifyContent: 'space-between' }}>
                   <span>{block.label}</span>
                   <span style={{ color: isActive ? 'var(--blue)' : 'var(--white)', fontWeight: 'bold' }}>
-                    {block.crewName} <span style={{fontSize: '10px', fontWeight: 'normal', color: 'var(--gray)', marginLeft: '4px'}}>{cycleBlockNumber ? `(${block.phase} ${cycleBlockNumber})` : ''}</span>
+                    {block.crewName} <span style={{ fontSize: '10px', fontWeight: 'normal', color: 'var(--gray)', marginLeft: '4px' }}>{cycleBlockNumber ? `(${block.phase} ${cycleBlockNumber})` : ''}</span>
                   </span>
                 </div>
                 <div className={styles.shiftCardSub}>

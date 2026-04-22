@@ -6,6 +6,7 @@
   position: relative;
   overflow: hidden;
   transition: all 0.25s ease;
+  width: 100%;
 }
 
 .card:hover {
@@ -95,6 +96,7 @@
     transform: scale(0);
     opacity: 0;
   }
+
   to {
     transform: scale(1);
     opacity: 1;

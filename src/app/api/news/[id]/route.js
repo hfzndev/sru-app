@@ -33,7 +33,7 @@ export async function PUT(req, { params }) {
     const updatedArticle = await News.findByIdAndUpdate(id, updateData, { new: true });
 
     if (!updatedArticle) {
-       return NextResponse.json({ message: "Article not found" }, { status: 404 });
+      return NextResponse.json({ message: "Article not found" }, { status: 404 });
     }
 
     return NextResponse.json(updatedArticle, { status: 200 });
@@ -53,9 +53,9 @@ export async function DELETE(req, { params }) {
 
     await dbConnect();
     const deletedArticle = await News.findByIdAndDelete(id);
-    
+
     if (!deletedArticle) {
-       return NextResponse.json({ message: "Article not found" }, { status: 404 });
+      return NextResponse.json({ message: "Article not found" }, { status: 404 });
     }
 
     return NextResponse.json({ message: "Article deleted successfully" }, { status: 200 });
