@@ -18,13 +18,48 @@
   grid-column: 1 / -1;
 }
 
+.title {
+  font-family: var(--font-bebas-neue);
+  font-size: 24px;
+  color: var(--white);
+  letter-spacing: 0.04em;
+}
+
+.cycleBlock {
+  font-size: 10px;
+  font-weight: normal;
+  color: var(--gray);
+}
+
+.shiftCrew1 {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.shiftCrew2 {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
 .cardLabel {
   font-size: 9px;
-  font-family: var(--font-dm-mono);
+  font-family: var(--font-jakarta);
   letter-spacing: 0.15em;
   color: var(--gray);
   text-transform: uppercase;
   margin-bottom: 4px;
+}
+
+.shiftName {
+  font-size: 14px;
+  color: var(--white);
+  font-family: var(--font-jakarta);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
 }
 
 .shiftGrid {
@@ -43,15 +78,25 @@
   min-height: 50px;
 }
 
+.shiftCard:hover {
+  transform: translateY(-2px);
+  background: var(--black3);
+}
+
 .shiftCardActive {
   border-color: rgba(245, 200, 0, 0.4);
   background: rgba(245, 200, 0, 0.07);
 }
 
+.shiftCardActive:hover {
+  transform: translateY(-2px);
+  background: var(--yellow-dim);
+}
+
 .shiftCardLabel {
-  font-family: var(--font-bebas-neue);
+  font-family: var(--font-jakarta);
   font-size: 18px;
-  letter-spacing: 0.05em;
+  min-height: 40px;
   color: var(--white);
   line-height: 1;
 }

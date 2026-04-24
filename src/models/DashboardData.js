@@ -35,7 +35,7 @@ const DashboardDataSchema = new mongoose.Schema({
   wwtMlssPit: { type: String, default: '1,800' },
 
   // Status
-  hbStatus: { type: String, default: 'clean', enum: ['clean', 'warn', 'danger'] },
+  hbStatus: { type: String, default: 'clean', enum: ['clean', 'warn', 'danger', 'cleaning'] },
 
 }, { timestamps: true });
 

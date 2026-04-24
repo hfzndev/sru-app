@@ -8,7 +8,7 @@ import styles from "./page.module.css"
 // ── Constants ──────────────────────────────────────────────────────────────
 const CONDITION_STD = ['Normal Operations', 'Idle', 'Stop']
 const CONDITION_U94 = ['Normal Operations', 'Idle', 'Stop', 'Thermox On']
-const CONDITION_HB = ['Clean', 'Little Dirty', 'Dirty']
+const CONDITION_HB = ['Clean', 'Little Dirty', 'Dirty', 'Cleaning']
 
 const CW_DESIGN = { pH: '6 – 9', COD: '< 100 mg/L', 'Oil Content': '< 5 mg/L', Phenol: '< 0.5 mg/L', Ammonia: '< 5 mg/L' }
 

@@ -366,7 +366,7 @@
 }
 
 .hbLabel {
-  font-family: var(--font-dm-mono);
+  font-family: var(--font-jakarta);
   font-size: 10px;
   color: var(--gray);
   letter-spacing: 0.03em;

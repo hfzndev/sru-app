@@ -1,3 +1,8 @@
+@./skills/caveman/SKILL.md
+@./skills/caveman-commit/SKILL.md
+@./skills/caveman-review/SKILL.md
+@./skills/caveman-compress/SKILL.md
+
 <!-- BEGIN:nextjs-agent-rules -->
 # This is NOT the Next.js you know
 
@@ -16,3 +21,4 @@ This version has breaking changes — APIs, conventions, and file structure may 
 - Stick firmly to the Dark Theme aesthetic.
 - Prioritize updating `page.module.css` instead of dropping haphazard inline `style={{ ... }}` into React components.
 - Rely perfectly on CSS properties from `globals.css` (e.g. `var(--black2)`, `var(--yellow)`, `var(--font-jakarta)`). Never use standard blue/red/green or generic fonts.
+

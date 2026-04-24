@@ -64,19 +64,34 @@ export const authOptions = {
   ],
   session: {
     strategy: "jwt",
+    maxAge: 12 * 60 * 60, // 12 hours absolute maximum
+  },
+  cookies: {
+    sessionToken: {
+      name: process.env.NODE_ENV === 'production' ? '__Secure-next-auth.session-token' : 'next-auth.session-token',
+      options: {
+        httpOnly: true,
+        sameSite: 'lax',
+        path: '/',
+        secure: process.env.NODE_ENV === 'production',
+        // Omitting maxAge to make it a browser session cookie (expires on tab/browser close)
+      }
+    }
   },
   callbacks: {
     async jwt({ token, user }) {
       // Add role to token if user is passed in (on initial sign in)
       if (user) {
         token.role = user.role;
+        token.id = user.id;
       }
       return token;
     },
     async session({ session, token }) {
-      // Add role to session
+      // Add role and id to session
       if (token && session.user) {
         session.user.role = token.role;
+        session.user.id = token.id || token.sub;
       }
       return session;
     }

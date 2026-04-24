@@ -1,4 +1,5 @@
 "use client"
+import { useEffect } from "react"
 import styles from "./FurnaceCard.module.css"
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, CartesianGrid, LineChart, Line } from 'recharts'
 
@@ -6,6 +7,8 @@ import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, CartesianG
 // ── Conversion factors ─────────────────────────────────────────────────────
 const T401_FACTOR = 0.0884881043745203
 const T402_FACTOR = 0.0884877754301238
+
+
 
 // ── Sub-components ─────────────────────────────────────────────────────────
 const MetricBox = ({ label, value, unit, isWarning }) => (
@@ -38,7 +41,7 @@ const ConditionPill = ({ value }) => {
 
 const HBPill = ({ value }) => {
   const c = value || 'Clean'
-  const color = c === 'Dirty' ? '#ff4444' : c === 'Little Dirty' ? '#f5c800' : '#4ade80'
+  const color = c === 'Dirty' ? '#ff4444' : c === 'Little Dirty' || c === 'Cleaning' ? '#f5c800' : '#4ade80'
   return (
     <span className={styles.hbPill} style={{
       background: `${color}18`,
@@ -61,13 +64,14 @@ const SubHeader = ({ label }) => (
   <div className={styles.subHeader}>{label}</div>
 )
 
+
 // ── Main component ─────────────────────────────────────────────────────────
 export default function FurnaceCard({ data, chartData, logData }) {
   if (!data) return <div style={{ color: 'var(--gray)', padding: '20px' }}>Loading Dashboard Data...</div>
 
-  const getStatusDot = (s) => s === 'danger' ? styles.dotDanger : s === 'warn' ? styles.dotWarn : styles.dotClean
-  const getStatusLabel = (s) => s === 'danger' ? 'DIRTY' : s === 'warn' ? 'LITTLE DIRTY' : 'CLEAN'
-  const getStatusDesc = (s) => s === 'clean' ? 'Operating normally' : s === 'warn' ? 'Requires Attention' : 'Critical — Needs Cleaning'
+  const getStatusDot = (s) => s === 'danger' ? styles.dotDanger : (s === 'warn' || s === 'cleaning') ? styles.dotWarn : styles.dotClean
+  const getStatusLabel = (s) => s === 'danger' ? 'DIRTY' : s === 'warn' ? 'LITTLE DIRTY' : s === 'cleaning' ? 'CLEANING' : 'CLEAN'
+  const getStatusDesc = (s) => s === 'clean' ? 'Operating normally' : s === 'warn' ? 'Requires Attention' : s === 'cleaning' ? 'Cleaning in progress' : 'Critical — Needs Cleaning'
 
   const tankTrend = chartData?.tankTrend ?? []
   const sulfurDaily = chartData?.sulfurDaily ?? []
@@ -380,6 +384,6 @@ export default function FurnaceCard({ data, chartData, logData }) {
         </div>
 
       </div>
-    </div>
+    </div >
   )
 }

@@ -5,6 +5,7 @@ import sharedStyles from "../shared.module.css"
 import FurnaceCard from "@/components/FurnaceCard"
 import HighlightsCard from "@/components/HighlightsCard"
 import ManpowerCard from "@/components/ManpowerCard"
+import StockSummaryCard from "@/components/StockSummaryCard"
 
 export default function Dashboard() {
   const [time, setTime] = useState("--:--")
@@ -16,6 +17,7 @@ export default function Dashboard() {
   const [chartData, setChartData] = useState(null);
   const [logData, setLogData] = useState(null);
   const [highlights, setHighlights] = useState([]);
+  const [stockData, setStockData] = useState([]);
 
   useEffect(() => {
     fetch('/api/dashboard-data')
@@ -38,6 +40,12 @@ export default function Dashboard() {
     fetch('/api/operation-log/highlights')
       .then(res => res.json())
       .then(data => Array.isArray(data) ? setHighlights(data) : setHighlights([]))
+      .catch(console.error);
+
+    // Fetch stock
+    fetch('/api/stock')
+      .then(res => res.json())
+      .then(data => Array.isArray(data) ? setStockData(data) : setStockData([]))
       .catch(console.error);
   }, []);
 
@@ -178,6 +186,11 @@ export default function Dashboard() {
       <div className={styles.sectionLabel}>SRU OPERATIONS REPORT</div>
       <div className={sharedStyles.cardsGrid}>
         <FurnaceCard data={dashboardData} chartData={chartData} logData={logData} />
+      </div>
+
+      <div className={styles.sectionLabel}>Stock Summary Report</div>
+      <div className={sharedStyles.cardsGrid}>
+        <StockSummaryCard stockData={stockData} />
       </div>
 
       <div className={styles.sectionLabel}>Highlights</div>

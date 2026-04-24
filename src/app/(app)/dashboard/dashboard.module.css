@@ -180,7 +180,7 @@
 /* ── SHIFT BANNER ── */
 
 .shiftBanner {
-  margin: 0 0 24px;
+  margin: 0 0 48px;
   background: var(--black2);
   border: 1px solid var(--gray2);
   border-radius: var(--radius);
@@ -269,21 +269,32 @@
 .sectionLabel {
   padding: 0 20px;
   margin-bottom: 10px;
-  font-family: var(--font-dm-mono);
+  font-family: var(--font-jakarta);
   font-size: 9px;
   letter-spacing: 0.2em;
   color: var(--white);
   text-transform: uppercase;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
+  font-weight: 700;
+}
+
+.sectionLabel::before {
+  content: '';
+  flex: 3;
+  max-width: 50%;
+  height: 1px;
+  background: linear-gradient(to left, var(--yellow), transparent);
 }
 
 .sectionLabel::after {
   content: '';
-  flex: 1;
+  flex: 3;
+  max-width: 50%;
   height: 1px;
-  background: linear-gradient(to right, var(--gray2), transparent);
+  background: linear-gradient(to right, var(--yellow), transparent);
 }
 
 /* Use inherited card styles from sharedStyles, this section removed to avoid conflicts */

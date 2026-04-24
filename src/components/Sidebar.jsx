@@ -3,13 +3,27 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useSession, signOut } from 'next-auth/react'
-import { Menu, X, LayoutDashboard, Flame, Package, Users, Settings, LogOut, Newspaper, BadgeCheck as UserBadge } from 'lucide-react'
+import { Menu, X, LayoutDashboard, Flame, Package, Users, Settings, LogOut, Newspaper, BadgeCheck as UserBadge, UserCircle } from 'lucide-react'
 import styles from './Sidebar.module.css'
 
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(false)
   const pathname = usePathname()
   const { data: session } = useSession()
+  const [profilePic, setProfilePic] = useState(null)
+
+  useEffect(() => {
+    if (session?.user?.id) {
+      fetch("/api/user/profile")
+        .then(res => res.ok ? res.json() : null)
+        .then(data => {
+          if (data?.profilePictureBase64) {
+            setProfilePic(data.profilePictureBase64)
+          }
+        })
+        .catch(console.error)
+    }
+  }, [session])
 
   // Close sidebar on route change for mobile
   useEffect(() => {
@@ -35,6 +49,7 @@ export default function Sidebar() {
     { name: 'Crew', path: '/crew', icon: <Users size={20} /> },
     { name: 'News', path: '/news', icon: <Newspaper size={20} /> },
     { name: 'Employees', path: '/employee', icon: <UserBadge size={20} /> },
+    { name: 'Profile', path: '/profile', icon: <UserCircle size={20} /> },
     { name: 'Settings', path: '/settings', icon: <Settings size={20} /> },
   ]
 
@@ -43,8 +58,10 @@ export default function Sidebar() {
       {/* Mobile Top Bar */}
       <div className={styles.mobileTopBar}>
         <div className={styles.mobileBrand}>
-          <img src="/SRU Logo CC.png" alt="SRU Logo" className={styles.mobileLogo} />
-          <span>SRU & IPAL</span>
+          <Link href="/" className={styles.logoLink}>
+            <img src="/SRU Logo CC.png" alt="SRU Logo" className={styles.logoImg} />
+            <div className={styles.brandText}>SRU & IPAL</div>
+          </Link>
         </div>
         <button className={styles.hamburgerBtn} onClick={toggleSidebar}>
           <Menu size={24} />
@@ -91,10 +108,18 @@ export default function Sidebar() {
         <div className={styles.sidebarFooter}>
           {session ? (
             <div className={styles.userSection}>
-              <div className={styles.userInfo}>
-                <div className={styles.avatar}>{session.user?.name?.charAt(0) || 'U'}</div>
-                <div className={styles.userName}>{session.user?.name || 'User'}</div>
-              </div>
+              <Link href='/profile'>
+                <div className={styles.userInfo}>
+                  <div className={styles.avatar}>
+                    {profilePic ? (
+                      <img src={profilePic} alt="User Avatar" style={{ width: '80%', height: '80%', borderRadius: '50%', objectFit: 'cover' }} />
+                    ) : (
+                      session.user?.name?.charAt(0).toUpperCase() || 'U'
+                    )}
+                  </div>
+                  <div className={styles.userName}>{session.user?.name || 'User'}</div>
+                </div>
+              </Link>
               <button className={styles.logoutBtn} onClick={() => signOut({ callbackUrl: '/' })}>
                 <LogOut size={18} />
                 <span>Logout</span>
@@ -102,7 +127,7 @@ export default function Sidebar() {
             </div>
           ) : (
             <Link href="/login" className={styles.loginBtn}>
-              Admin Login
+              Login
             </Link>
           )}
         </div>

@@ -14,6 +14,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     enum: ['superadmin', 'admin', 'pending', 'guest'],
     default: 'pending',
+  },
+  profilePictureBase64: {
+    type: String,
+    default: "",
   }
 }, { timestamps: true });
 

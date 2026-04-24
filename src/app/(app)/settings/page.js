@@ -11,12 +11,7 @@ export default function Settings() {
 
   const [notifEnabled, setNotifEnabled] = useState(false)
 
-  // Password state
-  const [currentPassword, setCurrentPassword] = useState("")
-  const [newPassword, setNewPassword] = useState("")
-  const [pwStatus, setPwStatus] = useState({ type: '', msg: '' })
-  const [pwLoading, setPwLoading] = useState(false)
-
+  // Password state removed, moved to profile page
   // Superadmin state
   const [pendingUsers, setPendingUsers] = useState([])
 
@@ -85,29 +80,7 @@ export default function Settings() {
     }
   }
 
-  const handleChangePassword = async (e) => {
-    e.preventDefault()
-    setPwLoading(true)
-    setPwStatus({ type: '', msg: '' })
-    try {
-      const res = await fetch("/api/user/change-password", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ currentPassword, newPassword })
-      })
-      const data = await res.json()
-      if (res.ok) {
-        setPwStatus({ type: 'success', msg: data.message || "Password updated!" })
-        setCurrentPassword("")
-        setNewPassword("")
-      } else {
-        setPwStatus({ type: 'error', msg: data.message })
-      }
-    } catch {
-      setPwStatus({ type: 'error', msg: "An error occurred." })
-    }
-    setPwLoading(false)
-  }
+  // handleChangePassword removed, moved to profile page
 
   const handleReviewUser = async (userId, action) => {
     try {
@@ -160,43 +133,7 @@ export default function Settings() {
           </div>
         )}
 
-        {/* ACCOUNT SECURITY BLOCK */}
-        <div className={styles.settingsSection}>
-          <div className={styles.settingsHeader}>Account Security</div>
-          <form className={styles.settingsRow} style={{ flexDirection: 'column', gap: '12px', alignItems: 'flex-start' }} onSubmit={handleChangePassword}>
-            <div style={{ width: '100%' }}>
-              <label style={{ display: 'block', color: 'var(--gray)', fontSize: '12px', fontFamily: 'var(--font-dm-mono)', marginBottom: '4px' }}>Current Password</label>
-              <input
-                type="password"
-                value={currentPassword}
-                onChange={(e) => setCurrentPassword(e.target.value)}
-                required
-                style={{ width: '100%', padding: '8px 12px', background: 'var(--black2)', border: '1px solid var(--gray2)', color: 'var(--white)', borderRadius: '6px', outline: 'none' }}
-              />
-            </div>
-            <div style={{ width: '100%' }}>
-              <label style={{ display: 'block', color: 'var(--gray)', fontSize: '12px', fontFamily: 'var(--font-dm-mono)', marginBottom: '4px' }}>New Password</label>
-              <input
-                type="password"
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-                required
-                style={{ width: '100%', padding: '8px 12px', background: 'var(--black2)', border: '1px solid var(--gray2)', color: 'var(--white)', borderRadius: '6px', outline: 'none' }}
-              />
-            </div>
-
-            {pwStatus.msg && (
-              <div style={{ padding: '8px', width: '100%', fontSize: '12px', borderRadius: '4px', background: pwStatus.type === 'error' ? 'rgba(255,0,0,0.1)' : 'rgba(0,255,0,0.1)', color: pwStatus.type === 'error' ? 'var(--danger)' : '#4ade80' }}>
-                {pwStatus.msg}
-              </div>
-            )}
-
-            <button type="submit" disabled={pwLoading} className={styles.btnDanger} style={{ background: 'var(--white)', color: 'var(--black)' }}>
-              {pwLoading ? 'Saving...' : 'Update Password'}
-            </button>
-          </form>
-        </div>
-
+  {/* ACCOUNT SECURITY MOVED TO PROFILE PAGE */}
 
         <div className={styles.settingsSection}>
           <div className={styles.settingsHeader}>App Preferences</div>

@@ -55,7 +55,7 @@ export async function POST(req) {
     }
 
     const body = await req.json();
-    const { date, ...fields } = body;
+    const { date, _id, __v, ...fields } = body;
 
     if (!date) {
       return NextResponse.json({ message: "date is required" }, { status: 400 });
@@ -124,7 +124,8 @@ export async function POST(req) {
     if (hbFields.some(c => c !== undefined)) {
       const hasDirty = hbFields.some(c => c === 'Dirty');
       const hasLittle = hbFields.some(c => c === 'Little Dirty');
-      dashboardSync.hbStatus = hasDirty ? 'danger' : hasLittle ? 'warn' : 'clean';
+      const hasCleaning = hbFields.some(c => c === 'Cleaning');
+      dashboardSync.hbStatus = hasDirty ? 'danger' : hasCleaning ? 'cleaning' : hasLittle ? 'warn' : 'clean';
     }
 
     if (Object.keys(dashboardSync).length > 0) {

@@ -12,7 +12,9 @@
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--gray2);
   position: fixed;
-  top: 0; left: 0; right: 0;
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 40;
 }
 
@@ -110,6 +112,7 @@
   cursor: pointer;
   padding: 4px;
 }
+
 .closeBtn:hover {
   color: var(--white);
 }
@@ -155,6 +158,7 @@
   color: var(--yellow);
   font-weight: 600;
 }
+
 .active:hover {
   background: rgba(245, 200, 0, 0.18);
   color: var(--yellow);
@@ -180,6 +184,18 @@
   display: flex;
   align-items: center;
   gap: 10px;
+}
+
+.userName:hover {
+  cursor: pointer;
+  color: var(--yellow);
+  transition: all 0.3s ease;
+}
+
+.avatar:hover {
+  cursor: pointer;
+  background-color: var(--yellow-dim);
+  transition: all 0.3s ease;
 }
 
 .avatar {
@@ -245,6 +261,7 @@
   font-weight: 700;
   transition: transform 0.2s ease;
 }
+
 .loginBtn:hover {
   transform: translateY(-2px);
 }
@@ -256,21 +273,21 @@
   .mobileTopBar {
     display: flex;
   }
-  
+
   .backdrop {
     display: block;
   }
-  
+
   .sidebar {
     transform: translateX(-100%);
     width: 280px;
   }
-  
+
   .sidebar.open {
     transform: translateX(0);
     box-shadow: 4px 0 24px rgba(0, 0, 0, 0.5);
   }
-  
+
   .closeBtn {
     display: flex;
   }
@@ -279,6 +296,7 @@
 /* Desktop */
 @media (min-width: 1024px) {
   .sidebar {
-    transform: none; /* Always visible */
+    transform: none;
+    /* Always visible */
   }
 }

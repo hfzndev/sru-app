@@ -58,19 +58,16 @@ export default function ManpowerCard() {
   };
 
   const blocks = [
-    { label: 'Morning', time: '08–16', crewName: shiftMap?.Morning, phase: 'Morning' },
-    { label: 'Mid Day', time: '16–00', crewName: shiftMap?.Mid, phase: 'Mid' },
-    { label: 'Night', time: '00–08', crewName: shiftMap?.Night, phase: 'Night' },
-    { label: 'Standby / Off', time: 'Rest', crewName: shiftMap?.Off, phase: 'Off' }
+    { label: 'MORNING', time: '08.00 – 16.00', crewName: shiftMap?.Morning, phase: 'Morning' },
+    { label: 'MID DAY', time: '16.00 – 00.00', crewName: shiftMap?.Mid, phase: 'Mid' },
+    { label: 'NIGHT', time: '00.00 – 08.00', crewName: shiftMap?.Night, phase: 'Night' },
+    { label: 'OFF', time: 'OFF', crewName: shiftMap?.Off, phase: 'Off' }
   ];
 
   return (
     <div className={`${styles.card} ${styles.cardWide}`}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-        <div className={styles.cardLabel}>Shift Roster Mapping</div>
-        {!loading && shiftMap && (
-          <div style={{ fontSize: '10px', color: 'var(--gray)', fontFamily: 'var(--font-dm-mono)' }}>LIVE PREDICTION</div>
-        )}
+        <div className={styles.title}>Shift Roster Mapping</div>
       </div>
 
       {loading ? (
@@ -86,14 +83,20 @@ export default function ManpowerCard() {
             return (
               <div key={i} className={`${styles.shiftCard} ${isActive ? styles.shiftCardActive : ''}`}>
                 <div className={styles.shiftCardLabel} style={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <span>{block.label}</span>
-                  <span style={{ color: isActive ? 'var(--blue)' : 'var(--white)', fontWeight: 'bold' }}>
-                    {block.crewName} <span style={{ fontSize: '10px', fontWeight: 'normal', color: 'var(--gray)', marginLeft: '4px' }}>{cycleBlockNumber ? `(${block.phase} ${cycleBlockNumber})` : ''}</span>
-                  </span>
+                  <div className={styles.shiftCrew1}>
+                    <span style={{ fontWeight: 'bold' }}>{block.label}</span>
+                    <div className={styles.shiftCardSub}>
+                      {block.time} {block.time !== 'OFF' ? 'WIB' : ''}
+                    </div>
+                  </div>
+                  <div className={styles.shiftCrew2}>
+                    <span className={styles.shiftName}>
+                      {block.crewName}
+                    </span>
+                    <span className={styles.cycleBlock}>{cycleBlockNumber ? `(${block.phase} ${cycleBlockNumber})` : 'OFF'}</span>
+                  </div>
                 </div>
-                <div className={styles.shiftCardSub}>
-                  {block.time} {block.time !== 'Rest' ? 'WIB' : ''}
-                </div>
+
               </div>
             );
           })}

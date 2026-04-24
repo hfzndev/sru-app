@@ -1,6 +1,7 @@
 "use client"
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
+import { useSession, signOut } from 'next-auth/react'
 import styles from './page.module.css'
 
 function Placeholder({ className, label }) {
@@ -27,15 +28,16 @@ const aboutCards = [
 ]
 
 const opsParams = [
-  { label: 'Sulfur Production', value: '7.19', unit: 'ton', note: 'Daily target: 8 ton' },
-  { label: 'Feed Gas Total', value: '3505', unit: 'kg/hr', note: 'Normal: 3000 – 4000' },
-  { label: 'Sulfur Inventory', value: '390.58', unit: 'ton', note: 'Daily producing sulfur' },
-  { label: 'Feed Capacity', value: '14.02', unit: '%', note: 'Normal : 100%' },
-  { label: 'Acid Gas Total', value: '1061', unit: 'kg/hr', note: 'Min. 900' },
-  { label: 'Active Crew', value: '8', unit: 'people', note: 'On shift duty' },
+  { label: 'Sulfur Production', value: '--', unit: 'ton/day', note: 'Daily target: 8 ton' },
+  { label: 'Sulfur Inventory', value: '--', unit: 'ton', note: 'Tank 93T-401 + 93T-402' },
+  { label: 'Feed Capacity (U91)', value: '--', unit: '%', note: 'Normal: 100%' },
+  { label: 'SRU Capacity (U93)', value: '--', unit: '%', note: 'Normal: 100%' },
+  { label: 'IPAL Capacity', value: '--', unit: '%', note: 'Normal: 100%' },
+  { label: 'Active Crew', value: '--', unit: 'people', note: 'On shift duty' },
 ]
 
 export default function LandingPage() {
+  const { data: session } = useSession()
   const [scrolled, setScrolled] = useState(false)
   const [visible, setVisible] = useState({})
   const [newsData, setNewsData] = useState([])
@@ -123,9 +125,25 @@ export default function LandingPage() {
             <img src="/SRU Logo CC.png" alt="SRU Logo" className={styles.navLogo} />
             <div className={styles.brandText}>SRU & IPAL</div>
           </Link>
-          <div className={styles.heroCtas}>
-            <Link href="/login" className={styles.ctaSecondary}>Admin Login</Link>
-            <Link href="/dashboard" className={styles.ctaPrimary}>Enter Dashboard</Link>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            {session && (
+              <div className={styles.profileIcon}>
+                {session.user?.name?.charAt(0).toUpperCase() || 'U'}
+              </div>
+            )}
+            <div className={styles.heroCtas}>
+              {session ? (
+                <Link href="/dashboard" className={styles.ctaPrimary}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    Enter Dashboard
+                  </div>
+                </Link>
+              ) : (
+                <>
+                  <Link href="/dashboard" className={styles.ctaPrimary}>Enter Dashboard</Link>
+                </>
+              )}
+            </div>
           </div>
         </nav>
 
@@ -191,6 +209,7 @@ export default function LandingPage() {
             <div className={styles.labelLine} />
           </div>
           <h2 className={styles.sectionTitle}>Latest Updates</h2>
+          <p className={styles.sectionSub}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod.</p>
         </div>
         <div
           className={styles.featuredScroll}
@@ -226,16 +245,25 @@ export default function LandingPage() {
             <div className={styles.labelLine} />
           </div>
           <h2 className={styles.sectionTitle}>Dashboard Overview</h2>
+          {dashboardData?.updatedAt && (
+            <p className={styles.opsDataStamp}>
+              Data as of:{' '}
+              {new Date(dashboardData.updatedAt).toLocaleDateString('id-ID', {
+                weekday: 'long', day: '2-digit', month: 'long', year: 'numeric',
+                timeZone: 'Asia/Jakarta',
+              })}
+            </p>
+          )}
           <p className={styles.sectionSub}>
             Daily operational data summary from SRU & IPAL including production, efficiency, and emission data.
           </p>
           <div className={styles.opsGrid}>
             {(dashboardData ? [
-              { label: 'Sulfur Production', value: dashboardData.sulfurProduction, unit: 'ton', note: 'Daily target: 8 ton' },
-              { label: 'Feed Gas Total', value: dashboardData.feedGasTotal, unit: 'kg/hr', note: 'Normal: 3000 – 4000' },
-              { label: 'Sulfur Inventory', value: dashboardData.sulfurInventory, unit: 'ton', note: 'Daily producing sulfur' },
-              { label: 'Feed Capacity', value: dashboardData.u91FeedGasCapacity, unit: '%', note: 'Normal : 100%' },
-              { label: 'Acid Gas Total', value: dashboardData.u93AcidGasTotal, unit: 'kg/hr', note: 'Min. 900' },
+              { label: 'Sulfur Production', value: dashboardData.sulfurProduction, unit: 'ton/day', note: 'Daily target: 8 ton' },
+              { label: 'Sulfur Inventory', value: dashboardData.sulfurInventory, unit: 'ton', note: 'Tank 93T-401 + 93T-402' },
+              { label: 'Feed Capacity (U91)', value: dashboardData.u91FeedGasCapacity, unit: '%', note: 'Normal: 100%' },
+              { label: 'SRU Capacity (U93)', value: dashboardData.u93Capacity, unit: '%', note: 'Normal: 100%' },
+              { label: 'IPAL Capacity', value: dashboardData.ipalCapacity, unit: '%', note: 'Normal: 100%' },
               { label: 'Active Crew', value: dashboardData.activeCrew, unit: 'people', note: 'On shift duty' },
             ] : opsParams).map((p, i) => (
               <div key={i} className={styles.opsCard}>
@@ -304,8 +332,14 @@ export default function LandingPage() {
           </div>
           <div className={styles.footerLinks}>
             <Link href="/dashboard" className={styles.footerLink}>Dashboard</Link>
-            <Link href="/login" className={styles.footerLink}>Admin Login</Link>
-            <Link href="/register" className={styles.footerLink}>Register</Link>
+            {session ? (
+              <button onClick={() => signOut()} className={styles.footerLink}>Logout</button>
+            ) : (
+              <>
+                <Link href="/login" className={styles.footerLink}>Admin Login</Link>
+                <Link href="/register" className={styles.footerLink}>Register</Link>
+              </>
+            )}
           </div>
         </div>
         <div className={styles.footerCopy}>
