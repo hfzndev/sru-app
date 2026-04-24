@@ -46,7 +46,7 @@
 }
 
 .deptTagText {
-  font-family: var(--font-dm-mono);
+  font-family: var(--font-jakarta);
   font-size: 9px;
   letter-spacing: 0.18em;
   color: var(--yellow);

@@ -43,6 +43,7 @@ export default function LandingPage() {
   const [newsData, setNewsData] = useState([])
   const [featuredWorker, setFeaturedWorker] = useState(null)
   const [dashboardData, setDashboardData] = useState(null)
+  const [profilePic, setProfilePic] = useState(null)
 
   // Ref for drag-to-scroll
   const scrollRef = useRef(null)
@@ -112,6 +113,19 @@ export default function LandingPage() {
     return () => observer.disconnect()
   }, [])
 
+  useEffect(() => {
+    if (session?.user?.id) {
+      fetch("/api/user/profile")
+        .then(res => res.ok ? res.json() : null)
+        .then(data => {
+          if (data?.profilePictureBase64) {
+            setProfilePic(data.profilePictureBase64)
+          }
+        })
+        .catch(console.error)
+    }
+  }, [session])
+
   return (
     <div className={styles.landing}>
 
@@ -127,9 +141,15 @@ export default function LandingPage() {
           </Link>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             {session && (
-              <div className={styles.profileIcon}>
-                {session.user?.name?.charAt(0).toUpperCase() || 'U'}
-              </div>
+              <Link href="/profile">
+                <div className={styles.profileIcon}>
+                  {profilePic ? (
+                    <img src={profilePic} alt="User Avatar" style={{ width: '80%', height: '80%', borderRadius: '50%', objectFit: 'cover' }} />
+                  ) : (
+                    session.user?.name?.charAt(0).toUpperCase() || 'U'
+                  )}
+                </div>
+              </Link>
             )}
             <div className={styles.heroCtas}>
               {session ? (

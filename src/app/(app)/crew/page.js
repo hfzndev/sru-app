@@ -197,9 +197,9 @@ export default function CrewManagement() {
         <div style={{ padding: '0 20px', display: 'flex', alignItems: 'center' }}>
           <button
             onClick={() => { setCurrentView(null); setExpandedWorker(null); }}
-            style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'transparent', color: 'var(--yellow)', border: 'none', padding: '8px 0', cursor: 'pointer', fontFamily: 'var(--font-jakarta)', fontSize: '14px', fontWeight: '600' }}
+            className={styles.backOverview}
           >
-            <span style={{ fontSize: '18px' }}>&larr;</span> Back to Overview
+            <span className={styles.backOverview}>&larr;</span> Back to Overview
           </button>
         </div>
 
@@ -239,10 +239,10 @@ export default function CrewManagement() {
               const isEditing = expandedWorker === w.id
 
               return (
-                <div key={w.id} className={styles.workerCard} style={{ display: 'flex', flexDirection: 'column', transition: '0.3s ease', padding: '16px' }}>
+                <div key={w.id} className={styles.workerCard}>
 
                   {/* Top Bar - Click to Expand Actions */}
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', cursor: 'pointer' }} onClick={() => handleToggleWorker(w)}>
+                  <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: '100%', cursor: 'pointer' }} onClick={() => handleToggleWorker(w)}>
                     <div className={styles.workerInfo}>
                       <div className={styles.wName}>
                         {w.name}
@@ -262,7 +262,7 @@ export default function CrewManagement() {
                   {/* Expanded Edit Panel (Animated) */}
                   <div style={{
                     maxHeight: isEditing ? '450px' : '0',
-                    fontFamily: 'var(--font-space-grotesk)',
+                    fontFamily: 'var(--font-jakarta)',
                     opacity: isEditing ? 1 : 0,
                     overflow: 'hidden',
                     transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
@@ -313,7 +313,7 @@ export default function CrewManagement() {
 
                       <button
                         onClick={() => handleSaveProfile(w.id, currentView)}
-                        style={{ marginTop: '8px', background: 'var(--blue)', color: 'white', border: '1px solid var(--gray)', padding: '8px', borderRadius: '6px', fontSize: '12px', fontWeight: 'bold', cursor: 'pointer' }}
+                        className={styles.profileBtn}
                       >
                         Save Profile Changes
                       </button>
@@ -357,10 +357,10 @@ export default function CrewManagement() {
           </div>
 
           {/* ── ADD WORKER FORM ── */}
-          <div style={{ margin: '0 20px 100px' }}>
+          <div style={{ margin: '0 20px 10px' }}>
             <button
               onClick={() => { setShowAddForm(p => !p); setAddForm({ name: '', role: '', type: 'Organik' }) }}
-              style={{ width: '100%', padding: '12px', background: showAddForm ? 'rgba(245,200,0,0.08)' : 'var(--black2)', color: showAddForm ? 'var(--yellow)' : 'var(--gray)', border: `1px solid ${showAddForm ? 'rgba(245,200,0,0.3)' : 'var(--gray2)'}`, borderRadius: '10px', fontFamily: 'var(--font-dm-mono)', fontSize: '11px', letterSpacing: '0.12em', textTransform: 'uppercase', cursor: 'pointer', transition: '0.2s' }}
+              className={styles.addWorker}
             >
               {showAddForm ? '✕ Cancel' : '+ Add New Worker'}
             </button>
@@ -444,7 +444,6 @@ export default function CrewManagement() {
           <div
             key={section.sectionId}
             className={styles.crewBox}
-            style={{ cursor: 'pointer', border: '1px solid var(--gray2)' }}
             onClick={() => setCurrentView(section.sectionId)}
           >
             <div className={styles.crewBoxHeader}>
@@ -453,7 +452,7 @@ export default function CrewManagement() {
                 <div className={styles.crewBoxSub}>{section.sub}</div>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                <span style={{ fontSize: '12px', color: 'var(--white)', background: 'var(--black2)', padding: '4px 10px', borderRadius: '12px' }}>
+                <span style={{ fontSize: '12px', color: 'var(--white)', fontFamily: 'var(--font-jakarta)', background: 'var(--black2)', padding: '4px 10px', borderRadius: '12px' }}>
                   {section.workers.length} Personnel
                 </span>
                 <span style={{ color: 'var(--gray)', fontSize: '14px' }}>&rarr;</span>
